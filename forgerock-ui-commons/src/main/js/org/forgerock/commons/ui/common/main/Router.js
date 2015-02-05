@@ -28,16 +28,28 @@
  * @author mbilski
  */
 define("org/forgerock/commons/ui/common/main/Router", [
-    "org/forgerock/commons/ui/common/main/EventManager", 
+    "underscore",
+    "org/forgerock/commons/ui/common/main/EventManager",
     "org/forgerock/commons/ui/common/util/Constants",
     "org/forgerock/commons/ui/common/main/Configuration",
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware"
-], function(eventManager, constants, conf, AbstractConfigurationAware) {
-    var obj = new AbstractConfigurationAware();
-    
+], function(_, eventManager, constants, conf, AbstractConfigurationAware) {
+    var obj = new AbstractConfigurationAware(),
+        decodeLastElement = function (array) {
+            // Return a modified version of the provided array, with only the last item changed (decoded)
+            // Has no side-effects on the passed-in array object.
+            return _.map(array, function (item, index) {
+                if (index === array.length-1 && typeof item === "string") {
+                    return decodeURIComponent(item);
+                } else {
+                    return item;
+                }
+            });
+        };
+
     obj.bindedRoutes = {};
     obj.currentRoute = {};
-    
+
     obj.checkRole = function (route) {
         if(route.role) {
             if(!conf.loggedUser || !_.find(route.role.split(','), function(role) {
@@ -59,11 +71,11 @@ define("org/forgerock/commons/ui/common/main/Router", [
 
     obj.init = function() {
         console.debug("Router init");
-        
+
         var Router = Backbone.Router.extend({
             initialize: function(routes) {
                 var route, url;
-                
+
                 for(route in routes) {
                     url = routes[route].url;
                     this.route(url, route, _.bind(this.processRoute, {key: route}));
@@ -71,34 +83,34 @@ define("org/forgerock/commons/ui/common/main/Router", [
                 }
             },
             processRoute : function() {
-                
+
                 var route = obj.configuration.routes[this.key], baseView, i, args;
-                
-                args = _.toArray(arguments);
+
+                args = decodeLastElement(_.toArray(arguments));
 
                 if (!obj.checkRole(route)) {
                     return;
                 }
 
                 if(route.event) {
-                    eventManager.sendEvent(route.event, args);
+                    eventManager.sendEvent(route.event, {route: route, args: args});
                 } else if(route.dialog) {
                     route.baseView = obj.configuration.routes[route.base];
-                    
+
                     eventManager.sendEvent(constants.EVENT_SHOW_DIALOG, {route: route, args: args, base: route.base});
                 } else if(route.view) {
                     eventManager.sendEvent(constants.EVENT_CHANGE_VIEW, {route: route, args: args});
                 }
             }
         });
-        
+
         obj.router = new Router(obj.configuration.routes);
         Backbone.history.start();
     };
-    
+
     obj.routeTo = function(route, params) {
         var link;
-        
+
         if(params && params.args) {
             link = obj.getLink(route, params.args);
         } else {
@@ -109,25 +121,46 @@ define("org/forgerock/commons/ui/common/main/Router", [
         obj.currentRoute = route;
         obj.router.navigate(link, params);
     };
-    
+
     obj.execRouteHandler = function(routeName) {
         obj.bindedRoutes[routeName]();
     };
-    
+
+    obj.translateParameters = function (route, args) {
+        return obj.getFragmentParameters(obj.getLink(route, args));
+    };
+
+    /*
+     * This function processes the given fragment and returns the parameters found within it using Backbone functions.
+     * It is useful to be able to find out what parameters Backbone will produce when processing a particular fragment,
+     * before the actual navigation to that fragment
+     */
+    obj.getFragmentParameters = function(fragment) {
+        var handler = _.find(Backbone.history.handlers, function (handler) {
+            return handler.route.test(fragment);
+        });
+
+        if (handler) {
+            return decodeLastElement(obj.router._extractParameters(handler.route, fragment));
+        } else {
+            return undefined;
+        }
+    };
+
     obj.navigate = function(link, params) {
         obj.router.navigate(link, params);
     };
-    
+
     obj.getLink = function(route, args) {
         var i,maxArgLength, pattern;
-        
+
         if (typeof route.defaults === "object") {
             if (args) {
                 maxArgLength = (args.length >= route.defaults.length) ? args.length : route.defaults.length;
                 for (i=0;i<maxArgLength;i++) {
                     if (typeof args[i] !== "string" && route.defaults[i] !== undefined) {
                         args[i] = route.defaults[i];
-                    } 
+                    }
                 }
             } else {
                 args = route.defaults;
@@ -139,11 +172,12 @@ define("org/forgerock/commons/ui/common/main/Router", [
         } else {
             pattern = route.pattern;
         }
-        
+
         if (args) {
             for(i = 0; i < args.length; i++) {
-                if (args[i] !== undefined) {
-                    pattern = pattern.replace("?", args[i]);
+                if (typeof args[i] === "string") {
+                    // # and % are known to cause problems with routing when unencoded in the fragment
+                    pattern = pattern.replace("?", args[i].replace(/[\#\%]/g, encodeURIComponent));
                 } else {
                     break;
                 }
