@@ -22,8 +22,7 @@
  * "Portions Copyrighted [year] [name of copyright owner]"
  */
 
-/*global require, define, window, Handlebars, i18n, sessionStorage */
-/*jslint regexp: false*/
+/*global define, window, Handlebars, i18n, sessionStorage */
 
 define("org/forgerock/commons/ui/common/util/UIUtils", [
     "jquery",
@@ -37,75 +36,30 @@ define("org/forgerock/commons/ui/common/util/UIUtils", [
 ], function ($, _, String, AbstractConfigurationAware, handlebars, i18next, router, dateUtil) {
     var obj = new AbstractConfigurationAware();
 
-    obj.getUrl = function() {
-        return window.location.href;
-    };
-
-    obj.getCurrentUrlBasePart = function() {
-        return window.location.protocol + "//" + window.location.host;
-    };
-
-    obj.getCurrentHash = function() {
-        if (window.location.href.indexOf('#') === -1) {
-            return "";
-        } else {
-            // cannot use window.location.hash due to FF which de-encodes this parameter.
-            return window.location.href.substring(window.location.href.indexOf('#') + 1);
-        }
-    };
-
-    obj.getCurrentUrlQueryParameters = function() {
-        var hash = obj.getCurrentHash(),
-            queries = window.location.search.substr(1,window.location.search.length);
-            // location.search will only return a value if there are queries before the hash.
-        if (hash && hash.indexOf('&') > -1) {
-            queries = hash.substring(hash.indexOf('&') + 1);
-        }
-        return queries;
-    };
- 
-    obj.getCurrentPathName = function() {
-        return window.location.pathname;
-    };
-
-    obj.setUrl = function(url) {
-        window.location.href = url;
-    };
-
-    obj.normalizeSubPath = function(subPath) {
-        if(subPath.endsWith('/')) {
-            return subPath.removeLastChars();
-        }
-        return subPath;
-    };
-
-    obj.convertCurrentUrlToJSON = function() {
-        var result = {}, parsedQueryParams;
-
-        result.url = obj.getCurrentUrlBasePart();
-        result.pathName = obj.normalizeSubPath(obj.getCurrentPathName());
-
-        result.params = obj.convertQueryParametersToJSON(obj.getCurrentUrlQueryParameters());
-        return result;
-    };
-
-    obj.convertQueryParametersToJSON = function(queryParameters) {
-        if(queryParameters) {
-            //create a json object from a query string
-            //by taking a query string and splitting it up into individual key=value strings
-            return _.object(
-                //queryParameters.match(/([^&]+)/g) returns an array of key value pair strings
-                _.map(queryParameters.match(/([^&]+)/g), function (pair) {
-                   //convert each string into a an array 0 index being the key and 1 index being the value
-                   var keyAndValue = pair.match(/([^=]+)=?(.*)/).slice(1);
-                       //decode the value
-                       keyAndValue[1] = decodeURIComponent(keyAndValue[1]);
-                       return keyAndValue;
-                })
-            );
-        }
-        return null;
-    };
+    // these functions used to exist in this module, but they were moved to the
+    // router module (they are all route-related, rather than UI)
+    // this remains so that old code doesn't just break;
+    _.each([
+        "getUrl",
+        "getCurrentUrlBasePart",
+        "getURIFragmentQueryString",
+        "getURIQueryString",
+        "getCurrentHash",
+        "getURIFragment",
+        "getCurrentUrlQueryParameters",
+        "getCompositeQueryString",
+        "getCurrentPathName",
+        "setUrl",
+        "normalizeSubPath",
+        "convertCurrentUrlToJSON",
+        "convertQueryParametersToJSON",
+        "getParamByName"
+    ], function (f) {
+        obj[f] = function () {
+            console.warn("Deprecated use of UIUtils." + f + "; Update code to use Router." + f);
+            return router[f].apply(this, arguments);
+        };
+    });
 
     obj.commonJQGridFormatters = {
         objectFormatter: function (cellvalue, options, rowObject) {
@@ -137,7 +91,7 @@ define("org/forgerock/commons/ui/common/util/UIUtils", [
                 i,
                 len = cellvalue.length;
             for (i = 0; i < len; i++) {
-               
+
                 if (_.isString(cellvalue[i])){
                     result += '<li>' + cellvalue[i] + '</li>';
                 } else{
@@ -149,7 +103,7 @@ define("org/forgerock/commons/ui/common/util/UIUtils", [
 
             return result;
         },
-  
+
         dateFormatter: function (cellvalue, options, rowObject) {
             if (!cellvalue) {
                 return '';
@@ -748,7 +702,7 @@ define("org/forgerock/commons/ui/common/util/UIUtils", [
 
     _.mixin({
 
-        /*  findByValues takes a collection and returns a subset made up of objects where the given property name matches a value in the list.  
+        /*  findByValues takes a collection and returns a subset made up of objects where the given property name matches a value in the list.
             For example:
 
             var collections = [
@@ -775,7 +729,7 @@ define("org/forgerock/commons/ui/common/util/UIUtils", [
             });
         },
 
-        /*  removeByValues takes a collection and returns a subset made up of objects where there is no match between the given property name and the values in the list.  
+        /*  removeByValues takes a collection and returns a subset made up of objects where there is no match between the given property name and the values in the list.
             For example:
 
             var filtered = _.removeByValues(collections, "id", [1,3,4]);

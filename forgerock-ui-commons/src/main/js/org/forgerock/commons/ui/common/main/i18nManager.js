@@ -31,8 +31,8 @@
 define( "org/forgerock/commons/ui/common/main/i18nManager", [
     "jquery",
     "org/forgerock/commons/ui/common/util/Constants",
-    "org/forgerock/commons/ui/common/util/UIUtils"
-], function($, Constants, uiUtils) {
+    "org/forgerock/commons/ui/common/main/Router"
+], function($, consts, Router) {
 
     /*
      * i18nManger with i18next try to detect the user language and load the corresponding translation in the following order:
@@ -45,11 +45,11 @@ define( "org/forgerock/commons/ui/common/main/i18nManager", [
 
     obj.init = function(lang) {
 
-        var locales = [], opts = { }, params = uiUtils.convertCurrentUrlToJSON().params;
+        var locales = [], opts = { }, params = Router.convertCurrentUrlToJSON().params;
 
         if (params && params.locale) {
             lang = params.locale;
-        }    
+        }
 
         // return if the stored lang matches the new one.
         if (obj.lang !== undefined && obj.lang === lang) {
@@ -57,7 +57,7 @@ define( "org/forgerock/commons/ui/common/main/i18nManager", [
         }
         obj.lang = lang;
 
-   
+
         opts = {
             fallbackLng: Constants.DEFAULT_LANGUAGE,
             detectLngQS: 'locale',
@@ -71,7 +71,7 @@ define( "org/forgerock/commons/ui/common/main/i18nManager", [
         $.i18n.init(opts);
 
     };
-    
+
     return obj;
 
 });
