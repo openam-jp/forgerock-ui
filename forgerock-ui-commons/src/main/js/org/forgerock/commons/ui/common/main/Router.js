@@ -174,10 +174,9 @@ define("org/forgerock/commons/ui/common/main/Router", [
         }
 
         if (args) {
-            for(i = 0; i < args.length; i++) {
+            for (i = 0; i < args.length; i++) {
                 if (typeof args[i] === "string") {
-                    // # and % are known to cause problems with routing when unencoded in the fragment
-                    pattern = pattern.replace("?", args[i].replace(/[\#\%\?]/g, encodeURIComponent));
+                    pattern = pattern.replace("?", encodeURIComponent(args[i]));
                 } else {
                     break;
                 }
