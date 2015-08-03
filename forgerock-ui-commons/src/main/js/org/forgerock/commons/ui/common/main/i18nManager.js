@@ -32,7 +32,7 @@ define( "org/forgerock/commons/ui/common/main/i18nManager", [
     "jquery",
     "org/forgerock/commons/ui/common/util/Constants",
     "org/forgerock/commons/ui/common/main/Router"
-], function($, consts, Router) {
+], function($, Constants, Router) {
 
     /*
      * i18nManger with i18next try to detect the user language and load the corresponding translation in the following order:

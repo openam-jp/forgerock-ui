@@ -22,7 +22,7 @@
  * "Portions Copyrighted [year] [name of copyright owner]"
  */
 
-/*global define, window, Handlebars, i18n, sessionStorage */
+/*global require, define, window, Handlebars, i18n, sessionStorage */
 
 define("org/forgerock/commons/ui/common/util/UIUtils", [
     "jquery",
