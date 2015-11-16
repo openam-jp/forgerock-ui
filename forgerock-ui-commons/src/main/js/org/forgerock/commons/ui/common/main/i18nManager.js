@@ -31,21 +31,31 @@
 define( "org/forgerock/commons/ui/common/main/i18nManager", [
     "jquery",
     "org/forgerock/commons/ui/common/util/Constants",
-    "org/forgerock/commons/ui/common/main/Router"
-], function($, Constants, Router) {
+    "org/forgerock/commons/ui/common/main/Router",
+    "module"
+], function($, Constants, Router, Module) {
 
     /*
-     * i18nManger with i18next try to detect the user language and load the corresponding translation in the following order:
+     * i18nManger with i18next try to detect the user language and load the corresponding translation in the following
+     * order:
      * 1) The query string parameter (&locale=fr)
-     * 2) lang, a 2 digit language code passed in from server.
+     * 2) lang, a 2-5 character long language or locale code passed in from server. The value can be "en" or "en-US" for
+     * example.
      * 3) The default language set inside Constants.DEFAULT_LANGUAGE
+     *
+     * Note that the "load" field controls how the localization files are resolved:
+     * 1) current: always use the value that was passed in as "lang" (may be just "en", or "en-US")
+     * 2) unspecific: always use the non country-specific locale (so "en" in case lang was "en-US")
+     * 3) not set/other value: country-specific first, then non-country specific
+     *
+     * If the localization was not found, i18next will use "fallbackLng".
      */
 
     var obj = {};
 
     obj.init = function(lang) {
 
-        var locales = [], opts = { }, params = Router.convertCurrentUrlToJSON().params;
+        var locales = [], opts = { }, params = Router.convertCurrentUrlToJSON().params, loadMode;
 
         if (params && params.locale) {
             lang = params.locale;
@@ -57,6 +67,7 @@ define( "org/forgerock/commons/ui/common/main/i18nManager", [
         }
         obj.lang = lang;
 
+        loadMode = Module.config().i18nLoad || 'unspecific';
 
         opts = {
             fallbackLng: Constants.DEFAULT_LANGUAGE,
@@ -64,7 +75,7 @@ define( "org/forgerock/commons/ui/common/main/i18nManager", [
             useCookie:false,
             getAsync: false,
             lng:lang,
-            load: 'unspecific',
+            load: loadMode,
             resGetPath: require.toUrl('locales/__lng__/__ns__.json')
         };
 
