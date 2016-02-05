@@ -1,7 +1,7 @@
 /**
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2011-2014 ForgeRock AS. All rights reserved.
+ * Copyright (c) 2011-2016 ForgeRock AS. All rights reserved.
  *
  * The contents of this file are subject to the terms
  * of the Common Development and Distribution License
@@ -35,6 +35,11 @@ define("org/forgerock/commons/ui/common/components/Messages", [
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware"
 ], function($, _, Backbone, AbstractConfigurationAware) {
     var obj = new AbstractConfigurationAware(), Messages;
+
+    obj.TYPE_SUCCESS =  "success";
+    obj.TYPE_INFO =     "info";
+    obj.TYPE_WARNING =  "warning";
+    obj.TYPE_DANGER =   "error";
 
     Messages = Backbone.View.extend({
 
@@ -98,7 +103,7 @@ define("org/forgerock/commons/ui/common/components/Messages", [
 
         showMessage: function() {
             var _this = this, 
-                errorType = this.list[0].type === "error" ? "errorMessage" : "confirmMessage",
+                errorType = this.list[0].type === obj.TYPE_DANGER ? "errorMessage" : "confirmMessage",
                 delay = _this.delay + (this.list[0].message.length * 20);
             this.$el.append("<div class='"+errorType+"'><span class='error-outter'><span class='error-inner'><span>" + this.list[0].message + "</span></span></span></div>");
             this.$el.find("div:last").fadeIn(300, function () {
@@ -116,6 +121,10 @@ define("org/forgerock/commons/ui/common/components/Messages", [
     });
     
     obj.messages = new Messages();
+
+    obj.addMessage = function(msg){
+        obj.messages.addMessage(msg);
+    };
 
     return obj;
 });
