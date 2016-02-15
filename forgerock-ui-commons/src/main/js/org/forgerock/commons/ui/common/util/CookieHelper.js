@@ -1,28 +1,20 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+/*
+ * The contents of this file are subject to the terms of the Common Development and
+ * Distribution License (the License). You may not use this file except in compliance with the
+ * License.
  *
- * Copyright (c) 2011-2012 ForgeRock AS. All rights reserved.
+ * You can obtain a copy of the License at legal/CDDLv1.0.txt. See the License for the
+ * specific language governing permission and limitations under the License.
  *
- * The contents of this file are subject to the terms
- * of the Common Development and Distribution License
- * (the License). You may not use this file except in
- * compliance with the License.
+ * When distributing Covered Software, include this CDDL Header Notice in each file and include
+ * the License file at legal/CDDLv1.0.txt. If applicable, add the following below the CDDL
+ * Header, with the fields enclosed by brackets [] replaced by your own identifying
+ * information: "Portions copyright [year] [name of copyright owner]".
  *
- * You can obtain a copy of the License at
- * http://forgerock.org/license/CDDLv1.0.html
- * See the License for the specific language governing
- * permission and limitations under the License.
- *
- * When distributing Covered Code, include this CDDL
- * Header Notice in each file and include the License file
- * at http://forgerock.org/license/CDDLv1.0.html
- * If applicable, add the following below the CDDL Header,
- * with the fields enclosed by brackets [] replaced by
- * your own identifying information:
- * "Portions Copyrighted [year] [name of copyright owner]"
+ * Copyright 2011-2016 ForgeRock AS.
  */
 
-/*global define unescape*/
+/*global define, _, unescape*/
 
 define("org/forgerock/commons/ui/common/util/CookieHelper", [
 ], function () {
@@ -41,9 +33,28 @@ define("org/forgerock/commons/ui/common/util/CookieHelper", [
     
         return nameValuePart + expirationDatePart + pathPart + domainPart + securePart;
     };
-    
-    obj.setCookie = function(cookieName, cookieValue, expirationDate, cookiePath, cookieDomain, secureCookie) {
-        document.cookie = obj.createCookie(cookieName, cookieValue, expirationDate, cookiePath, cookieDomain, secureCookie);
+
+    /**
+     * Sets a cookie with given parameters in the browser.
+     * @param {String} name - cookie name.
+     * @param {String} [value] - cookie value.
+     * @param {Date} [expirationDate] - cookie expiration date.
+     * @param {String} [path] - cookie path.
+     * @param {String|String[]} [domain] - cookie domain(s). Use empty array for creating host-only cookies.
+     * @param {Boolean} [secure] - is cookie secure.
+     */
+    obj.setCookie = function (name, value, expirationDate, path, domains, secure) {
+        if (!_.isArray(domains)) {
+            domains = [domains];
+        }
+
+        if (domains.length === 0) {
+            document.cookie = obj.createCookie(name, value, expirationDate, path, undefined, secure);
+        } else {
+            _.each(domains, function(domain) {
+                document.cookie = obj.createCookie(name, value, expirationDate, path, domain, secure);
+            });
+        }
     };
     
     obj.getCookie = function(c_name) {
@@ -57,11 +68,17 @@ define("org/forgerock/commons/ui/common/util/CookieHelper", [
             }
         }
     };
-    
-    obj.deleteCookie = function(name, path, domain) {
+
+    /**
+     * Deletes cookie with given parameters.
+     * @param {String} name - cookie name.
+     * @param {String} [path] - cookie path.
+     * @param {String|String[]} [domain] - cookie domain(s). Use empty array for creating host-only cookies.
+     */
+    obj.deleteCookie = function(name, path, domains) {
         var date = new Date();
-        date.setTime(date.getTime()+(-1*24*60*60*1000));
-        obj.setCookie(name, "", date, path, domain);
+        date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
+        obj.setCookie(name, "", date, path, domains);
     };
     
     obj.cookiesEnabled = function(){
