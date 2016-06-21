@@ -57,7 +57,7 @@ select.invalid:focus  {
 }
 
 
-input.read-only, input:read-only, input[type="text"]:focus:read-only, input[type="email"]:focus:read-only{
+input.read-only, input:read-only, input:not[type="submit"], input[type="text"]:focus:read-only, input[type="email"]:focus:read-only {
     background: transparent;
     box-shadow:none;
     border:1px solid @input-border-basic;
