@@ -27,7 +27,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.forgerock</groupId>
+        <groupId>jp.openam</groupId>
         <artifactId>forgerock-parent</artifactId>
         <version>1.2.9</version>
     </parent>
@@ -37,7 +37,7 @@
         <node.install.directory>${project.parent.basedir}</node.install.directory>
     </properties>
 
-    <groupId>org.forgerock.commons.ui</groupId>
+    <groupId>jp.openam.commons.ui</groupId>
     <artifactId>forgerock-ui</artifactId>
     <version>13.0.5-SNAPSHOT</version>
     <name>Forgerock Web UI</name>
@@ -122,48 +122,48 @@
         <dependencies>
             <!-- core framework libraries -->
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>jquery</artifactId>
                 <version>2.1.1</version>
                 <type>js</type>
                 <classifier>min</classifier>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>lodash</artifactId>
                 <version>3.10.1</version>
                 <type>js</type>
                 <classifier>min</classifier>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>handlebars</artifactId>
                 <version>4.0.5</version>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>requirejs</artifactId>
                 <version>2.1.14</version>
                 <classifier>min</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backbone</artifactId>
                 <version>1.1.2</version>
                 <type>js</type>
                 <classifier>min</classifier>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backbone.paginator.min</artifactId>
                 <version>2.0.2</version>
                 <classifier>min</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>i18next</artifactId>
                 <version>1.7.3</version>
                 <type>js</type>
@@ -173,28 +173,28 @@
 
             <!-- Bootstrap, widgets and related theming -->
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>bootstrap</artifactId>
                 <version>3.3.5</version>
                 <classifier>custom</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>bootstrap</artifactId>
                 <version>3.3.5</version>
                 <classifier>custom</classifier>
                 <type>css</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>bootstrap-dialog</artifactId>
                 <version>1.34.4</version>
                 <classifier>min</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>bootstrap-dialog</artifactId>
                 <version>1.34.4</version>
                 <classifier>min</classifier>
@@ -202,28 +202,28 @@
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>font-awesome</artifactId>
                 <version>4.5.0</version>
                 <type>zip</type>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>selectize</artifactId>
                 <version>0.12.1</version>
                 <classifier>min</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>selectize</artifactId>
                 <version>0.12.1</version>
                 <classifier>bootstrap3</classifier>
                 <type>css</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>dragula</artifactId>
                 <version>3.6.7</version>
                 <classifier>min</classifier>
@@ -232,14 +232,14 @@
 
             <!-- misc date utilities -->
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>xdate</artifactId>
                 <version>0.8</version>
                 <type>js</type>
                 <classifier>min</classifier>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>moment</artifactId>
                 <version>2.8.1</version>
                 <type>js</type>
@@ -249,32 +249,32 @@
 
             <!-- basic form helpers -->
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>js2form</artifactId>
                 <type>js</type>
                 <version>2.0-769718a</version>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>form2js</artifactId>
                 <type>js</type>
                 <version>2.0-769718a</version>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>jquery.placeholder</artifactId>
                 <version>2.0.8</version>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>spin</artifactId>
                 <version>2.0.1</version>
                 <type>js</type>
                 <classifier>min</classifier>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>jquery.ba-dotimeout</artifactId>
                 <version>1.0</version>
                 <type>js</type>
@@ -283,49 +283,49 @@
 
             <!-- Libraries for grid support -->
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backgrid.min</artifactId>
                 <version>0.3.5</version>
                 <classifier>min</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backgrid.min</artifactId>
                 <version>0.3.5</version>
                 <type>less</type>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backgrid-paginator.min</artifactId>
                 <version>0.3.5</version>
                 <classifier>min</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backgrid-paginator.min</artifactId>
                 <version>0.3.5</version>
                 <type>css</type>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backgrid-filter.min</artifactId>
                 <version>0.3.5</version>
                 <classifier>min</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backgrid-filter.min</artifactId>
                 <version>0.3.5</version>
                 <type>css</type>
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backbone-relational</artifactId>
                 <version>0.9.0</version>
                 <classifier>min</classifier>
@@ -333,7 +333,7 @@
             </dependency>
 
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>backgrid-select-all</artifactId>
                 <version>0.3.5</version>
                 <classifier>min</classifier>
@@ -343,20 +343,20 @@
 
             <!-- testing and mocks -->
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>sinon</artifactId>
                 <version>1.15.4</version>
                 <type>js</type>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>qunit</artifactId>
                 <version>1.15.0</version>
                 <type>js</type>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.forgerock.commons.ui.libs</groupId>
+                <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>qunit</artifactId>
                 <type>css</type>
                 <version>1.15.0</version>

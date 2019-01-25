@@ -27,7 +27,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.forgerock.commons.ui</groupId>
+        <groupId>jp.openam.commons.ui</groupId>
         <artifactId>forgerock-ui</artifactId>
         <version>13.0.5-SNAPSHOT</version>
     </parent>
@@ -85,7 +85,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>org.forgerock.commons.ui</groupId>
+                                    <groupId>jp.openam.commons.ui</groupId>
                                     <artifactId>forgerock-ui-user</artifactId>
                                     <version>${project.version}</version>
                                     <type>zip</type>
@@ -102,7 +102,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.forgerock.commons.ui.libs</includeGroupIds>
+                            <includeGroupIds>jp.openam.commons.ui.libs</includeGroupIds>
                             <includeTypes>js</includeTypes>
                             <outputDirectory>${project.build.directory}/www/libs</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
@@ -117,7 +117,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.forgerock.commons.ui.libs</includeGroupIds>
+                            <includeGroupIds>jp.openam.commons.ui.libs</includeGroupIds>
                             <includeTypes>css</includeTypes>
                             <outputDirectory>${project.build.directory}/www/css</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
@@ -165,7 +165,7 @@
                             <outputDirectory>${project.build.directory}/www/libs</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>org.forgerock.commons.ui.libs</groupId>
+                                    <groupId>jp.openam.commons.ui.libs</groupId>
                                     <artifactId>CodeMirror</artifactId>
                                     <type>zip</type>
                                 </artifactItem>
@@ -179,7 +179,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.forgerock.commons.ui</groupId>
+            <groupId>jp.openam.commons.ui</groupId>
             <artifactId>forgerock-ui-user</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
@@ -187,24 +187,24 @@
         </dependency>
 
         <dependency>
-            <groupId>org.forgerock.commons.ui.libs</groupId>
+            <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>CodeMirror</artifactId>
             <version>4.10</version>
             <type>zip</type>
         </dependency>
 
         <dependency>
-            <groupId>org.forgerock.commons.ui.libs</groupId>
+            <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>sinon</artifactId>
             <type>js</type>
         </dependency>
         <dependency>
-            <groupId>org.forgerock.commons.ui.libs</groupId>
+            <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>qunit</artifactId>
             <type>js</type>
         </dependency>
         <dependency>
-            <groupId>org.forgerock.commons.ui.libs</groupId>
+            <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>qunit</artifactId>
             <type>css</type>
         </dependency>
