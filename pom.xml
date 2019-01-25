@@ -55,6 +55,7 @@
         <module>forgerock-ui-commons</module>
         <module>forgerock-ui-user</module>
         <module>forgerock-ui-mock</module>
+        <module>forgerock-ui-external-libs</module>
     </modules>
 
     <build>

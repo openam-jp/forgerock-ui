@@ -116,6 +116,12 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>jp.openam.commons.ui</groupId>
+            <artifactId>forgerock-ui-external-libs</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+        </dependency>
 
         <dependency>
             <groupId>jp.openam.commons.ui.libs</groupId>

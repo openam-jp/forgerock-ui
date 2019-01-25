@@ -189,7 +189,7 @@
         <dependency>
             <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>CodeMirror</artifactId>
-            <version>4.10</version>
+            <version>4.10.0</version>
             <type>zip</type>
         </dependency>
 
