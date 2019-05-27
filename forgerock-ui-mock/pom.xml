@@ -198,6 +198,12 @@
             <artifactId>sinon</artifactId>
             <type>js</type>
         </dependency>
+       <dependency>
+            <groupId>jp.openam.commons.ui.libs</groupId>
+            <artifactId>redux</artifactId>
+            <classifier>min</classifier>
+            <type>js</type>
+        </dependency>
         <dependency>
             <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>qunit</artifactId>
