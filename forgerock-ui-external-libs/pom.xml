@@ -525,13 +525,13 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/src/main/resources/bootstrap-3.3.5-custom.js</file>
+                            <file>${basedir}/src/main/resources/bootstrap-3.4.1-openam-jp.js</file>
                             <groupId>jp.openam.commons.ui.libs</groupId>
                             <artifactId>bootstrap</artifactId>
-                            <version>3.3.5</version>
+                            <version>3.4.1</version>
                             <packaging>js</packaging>
                             <generatePom>true</generatePom>
-                            <classifier>custom</classifier>
+                            <classifier>openam-jp</classifier>
                         </configuration>
                     </execution>
                     <execution>
@@ -541,13 +541,13 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/src/main/resources/bootstrap-3.3.5-custom.css</file>
+                            <file>${basedir}/src/main/resources/bootstrap-3.4.1-openam-jp.css</file>
                             <groupId>jp.openam.commons.ui.libs</groupId>
                             <artifactId>bootstrap</artifactId>
-                            <version>3.3.5</version>
+                            <version>3.4.1</version>
                             <packaging>css</packaging>
                             <generatePom>true</generatePom>
-                            <classifier>custom</classifier>
+                            <classifier>openam-jp</classifier>
                         </configuration>
                     </execution>
                     <execution>
