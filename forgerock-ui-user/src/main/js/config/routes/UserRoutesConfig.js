@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2019 Open Source Solution Technology Corporation
  */
 
 define([
@@ -23,28 +24,28 @@ define([
         "profile": {
             view: "UserProfileView",
             role: "ui-self-service-user",
-            url: /profile\/(.*)/,
+            url: /^profile\/(.*)/,
             pattern: "profile/?",
             defaults: ["details"],
             navGroup: "user"
         },
         "forgotUsername": {
             view: "ForgotUsernameView",
-            url: /forgotUsername(\/[^\&]*)(\&.+)?/,
+            url: /^forgotUsername(\/[^\&]*)(\&.+)?/,
             pattern: "forgotUsername??",
             argumentNames: ["realm", "additionalParameters"],
             defaults: ["/", ""]
         },
         "passwordReset": {
             view: "PasswordResetView",
-            url: /passwordReset(\/[^\&]*)(\&.+)?/,
+            url: /^passwordReset(\/[^\&]*)(\&.+)?/,
             pattern: "passwordReset??",
             argumentNames: ["realm", "additionalParameters"],
             defaults: ["/", ""]
         },
         "selfRegistration": {
             view: "RegisterView",
-            url: /register(\/[^\&]*)(\&.+)?/,
+            url: /^register(\/[^\&]*)(\&.+)?/,
             pattern: "register??",
             argumentNames: ["realm", "additionalParameters"],
             defaults: ["/",""]
