@@ -257,13 +257,13 @@
         <dependency>
             <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>bootstrap</artifactId>
-            <classifier>custom</classifier>
+            <classifier>openam-jp</classifier>
             <type>js</type>
         </dependency>
         <dependency>
             <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>bootstrap</artifactId>
-            <classifier>custom</classifier>
+            <classifier>openam-jp</classifier>
             <type>css</type>
         </dependency>
         <dependency>

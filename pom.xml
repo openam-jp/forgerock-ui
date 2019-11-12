@@ -176,15 +176,15 @@
             <dependency>
                 <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>bootstrap</artifactId>
-                <version>3.3.5</version>
-                <classifier>custom</classifier>
+                <version>3.4.1</version>
+                <classifier>openam-jp</classifier>
                 <type>js</type>
             </dependency>
             <dependency>
                 <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>bootstrap</artifactId>
-                <version>3.3.5</version>
-                <classifier>custom</classifier>
+                <version>3.4.1</version>
+                <classifier>openam-jp</classifier>
                 <type>css</type>
             </dependency>
             <dependency>
