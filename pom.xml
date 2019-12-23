@@ -29,7 +29,7 @@
     <parent>
         <groupId>jp.openam</groupId>
         <artifactId>forgerock-parent</artifactId>
-        <version>2.0.7-SNAPSHOT</version>
+        <version>2.0.7</version>
     </parent>
 
     <properties>
@@ -39,7 +39,7 @@
 
     <groupId>jp.openam.commons.ui</groupId>
     <artifactId>forgerock-ui</artifactId>
-    <version>13.0.5-SNAPSHOT</version>
+    <version>13.0.5</version>
     <name>Forgerock Web UI</name>
     <description>Common modern ForgeRock Web UI</description>
     <packaging>pom</packaging>
@@ -49,6 +49,7 @@
         <connection>scm:git:https://github.com/openam-jp/forgerock-ui.git</connection>
         <developerConnection>scm:git:git@github.com:openam-jp/forgerock-ui.git</developerConnection>
         <url>https://github.com/openam-jp/forgerock-ui</url>
+      <tag>13.0.5</tag>
     </scm>
 
     <modules>
