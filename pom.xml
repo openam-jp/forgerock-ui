@@ -50,7 +50,7 @@
         <developerConnection>scm:git:git@github.com:openam-jp/forgerock-ui.git</developerConnection>
         <url>https://github.com/openam-jp/forgerock-ui</url>
       <tag>13.0.5</tag>
-  </scm>
+    </scm>
 
     <modules>
         <module>forgerock-ui-commons</module>
