@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "form2js",
     "org/forgerock/commons/ui/user/anonymousProcess/AnonymousProcessView",
     "org/forgerock/commons/ui/user/anonymousProcess/KBAView"

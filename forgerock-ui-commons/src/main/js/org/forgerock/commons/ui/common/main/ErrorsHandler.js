@@ -16,7 +16,7 @@
 
 define([
     "underscore",
-    "jquery",
+    "jquery-migrate",
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware",
     "org/forgerock/commons/ui/common/main/EventManager",
     "org/forgerock/commons/ui/common/util/Constants"

@@ -16,7 +16,7 @@
 
 define([
     "underscore",
-    "jquery",
+    "jquery-migrate",
     "bootstrap-dialog"
 ], function (_, $, BootstrapDialog) {
 

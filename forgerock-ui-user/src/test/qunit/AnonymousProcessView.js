@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "org/forgerock/commons/ui/user/anonymousProcess/AnonymousProcessView",
     "org/forgerock/commons/ui/common/util/UIUtils"
 ], function ($, AnonymousProcessView, UIUtils) {

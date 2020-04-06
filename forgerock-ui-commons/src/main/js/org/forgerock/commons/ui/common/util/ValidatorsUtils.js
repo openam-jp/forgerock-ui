@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "underscore"
 ], function($, _) {
     var obj = {};

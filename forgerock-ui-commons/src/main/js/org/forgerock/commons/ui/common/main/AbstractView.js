@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "underscore",
     "backbone",
     "org/forgerock/commons/ui/common/main/Configuration",

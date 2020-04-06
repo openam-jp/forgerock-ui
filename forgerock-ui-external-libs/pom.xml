@@ -43,7 +43,18 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://code.jquery.com/jquery-2.2.4.min.js</url>
+                            <url>https://code.jquery.com/jquery-3.0.0.min.js</url>
+                            <outputDirectory>${project.basedir}/target/external</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-jquery-migrate</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://code.jquery.com/jquery-migrate-3.1.0.js</url>
                             <outputDirectory>${project.basedir}/target/external</outputDirectory>
                         </configuration>
                     </execution>
@@ -414,13 +425,28 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/target/external/jquery-2.2.4.min.js</file>
+                            <file>${basedir}/target/external/jquery-3.0.0.min.js</file>
                             <groupId>jp.openam.commons.ui.libs</groupId>
                             <artifactId>jquery</artifactId>
-                            <version>2.2.4</version>
+                            <version>3.0.0</version>
                             <packaging>js</packaging>
                             <generatePom>true</generatePom>
                             <classifier>min</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-jquery-migrate</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${basedir}/target/external/jquery-migrate-3.1.0.js</file>
+                            <groupId>jp.openam.commons.ui.libs</groupId>
+                            <artifactId>jquery-migrate</artifactId>
+                            <version>3.1.0</version>
+                            <packaging>js</packaging>
+                            <generatePom>true</generatePom>
                         </configuration>
                     </execution>
                     <execution>

@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "sinon",
     "org/forgerock/commons/ui/common/main/AbstractModel",
     "org/forgerock/commons/ui/common/main/ServiceInvoker"

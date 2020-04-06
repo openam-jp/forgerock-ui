@@ -38,7 +38,7 @@
         window.require = stashedRequire.original;
 
         require([
-            "jquery",
+            "jquery-migrate",
             "sinon",
             "org/forgerock/commons/ui/common/main/i18nManager",
             "ThemeManager"

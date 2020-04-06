@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "form2js",
     "js2form"
 ], function ($, form2js, js2form) {

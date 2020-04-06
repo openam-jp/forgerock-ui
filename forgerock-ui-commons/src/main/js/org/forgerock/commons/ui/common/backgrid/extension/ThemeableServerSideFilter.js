@@ -28,7 +28,7 @@
  * new Backgrid.Extension.ThemeableServerSideFilter({ ... });
  */
 define([
-    "jquery",
+    "jquery-migrate",
     "underscore",
     "backgrid-filter",
     "org/forgerock/commons/ui/common/backgrid/Backgrid"

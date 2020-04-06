@@ -46,7 +46,10 @@ require.config({
         js2form: "libs/js2form-2.0-769718a",
         form2js: "libs/form2js-2.0-769718a",
         spin: "libs/spin-2.0.1-min",
-        jquery: "libs/jquery-2.2.4-min",
+        //jqueryorg: "libs/jquery-3.0.0-min",
+        //jquery: "libs/jquery-migrate-3.1.0",
+        jquery: "libs/jquery-3.0.0-min",
+        "jquery-migrate": "libs/jquery-migrate-3.1.0",
         xdate: "libs/xdate-0.8-min",
         doTimeout: "libs/jquery.ba-dotimeout-1.0-min",
         handlebars: "libs/handlebars-4.0.5",
@@ -57,6 +60,10 @@ require.config({
     },
 
     shim: {
+        "jquery-migrate": {
+            deps: ["jquery"],
+            exports: "jQuery"
+        },
         sinon: {
             exports: "sinon"
         },

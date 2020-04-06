@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "org/forgerock/commons/ui/common/components/BootstrapDialogView",
     "org/forgerock/commons/ui/common/main/ValidatorsManager"
 ], function($, BootstrapDialogView, ValidatorsManager) {

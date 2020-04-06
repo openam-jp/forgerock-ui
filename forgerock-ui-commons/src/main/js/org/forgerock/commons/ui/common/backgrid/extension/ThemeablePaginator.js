@@ -28,7 +28,7 @@
  * new Backgrid.Extension.ThemeablePaginator({ ... });
  */
 define([
-    "jquery",
+    "jquery-migrate",
     "backgrid.paginator",
     "org/forgerock/commons/ui/common/backgrid/Backgrid"
 ], function ($, BackgridPaginator, Backgrid) {

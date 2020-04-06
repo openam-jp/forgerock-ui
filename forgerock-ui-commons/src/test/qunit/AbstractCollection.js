@@ -16,7 +16,7 @@
  /*globals QUnit */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "sinon",
     "org/forgerock/commons/ui/common/main/AbstractCollection",
     "org/forgerock/commons/ui/common/main/ServiceInvoker"

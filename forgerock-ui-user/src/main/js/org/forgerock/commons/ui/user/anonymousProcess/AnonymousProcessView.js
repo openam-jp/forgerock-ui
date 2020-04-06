@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "underscore",
     "form2js",
     "org/forgerock/commons/ui/common/main/AbstractView",
