@@ -43,7 +43,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://code.jquery.com/jquery-2.1.1.min.js</url>
+                            <url>https://code.jquery.com/jquery-2.2.4.min.js</url>
                             <outputDirectory>${project.basedir}/target/external</outputDirectory>
                         </configuration>
                     </execution>
@@ -414,10 +414,10 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/target/external/jquery-2.1.1.min.js</file>
+                            <file>${basedir}/target/external/jquery-2.2.4.min.js</file>
                             <groupId>jp.openam.commons.ui.libs</groupId>
                             <artifactId>jquery</artifactId>
-                            <version>2.1.1</version>
+                            <version>2.2.4</version>
                             <packaging>js</packaging>
                             <generatePom>true</generatePom>
                             <classifier>min</classifier>

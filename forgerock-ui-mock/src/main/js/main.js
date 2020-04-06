@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2020 Open Source Solution Technology Corporation
  */
 
 require.config({
@@ -45,7 +46,7 @@ require.config({
         js2form: "libs/js2form-2.0-769718a",
         form2js: "libs/form2js-2.0-769718a",
         spin: "libs/spin-2.0.1-min",
-        jquery: "libs/jquery-2.1.1-min",
+        jquery: "libs/jquery-2.2.4-min",
         xdate: "libs/xdate-0.8-min",
         doTimeout: "libs/jquery.ba-dotimeout-1.0-min",
         handlebars: "libs/handlebars-4.0.5",
