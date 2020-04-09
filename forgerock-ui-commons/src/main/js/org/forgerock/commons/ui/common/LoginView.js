@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions Copyrighted 2020 Open Source Solution Technology Corporation
  */
 
 define([
@@ -60,9 +61,9 @@ define([
                     this.$el.find("input[name=login]").val(login).prop('autofocus', false);
                     this.$el.find("[name=loginRemember]").prop("checked",true);
                     validatorsManager.validateAllFields(this.$el);
-                    this.$el.find("[name=password]").focus();
+                    this.$el.find("[name=password]").trigger("focus");
                 } else {
-                    this.$el.find("input[name=login]").focus();
+                    this.$el.find("input[name=login]").trigger("focus");
                 }
 
                 if (callback) {

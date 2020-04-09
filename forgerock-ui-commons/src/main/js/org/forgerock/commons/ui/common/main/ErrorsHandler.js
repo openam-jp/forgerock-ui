@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2012-2016 ForgeRock AS.
+ * Portions Copyrighted 2020 Open Source Solution Technology Corporation
  */
 
 define([
@@ -32,7 +33,7 @@ define([
 
         if (error.hasOwnProperty('responseText')) {
             try {
-                error.responseObj = $.parseJSON(error.responseText);
+                error.responseObj = JSON.parse(error.responseText);
             } catch (parseErr) { /* Must not be JSON */ }
         }
 

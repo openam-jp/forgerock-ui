@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions Copyrighted 2020 Open Source Solution Technology Corporation
  */
 
 define([
@@ -221,11 +222,11 @@ define([
 
     $.event.special.delayedkeyup = {
         setup: function() {
-            $(this).bind("keyup", $.event.special.delayedkeyup.handler);
+            $(this).on("keyup", $.event.special.delayedkeyup.handler);
         },
 
         teardown: function() {
-            $(this).unbind("keyup", $.event.special.delayedkeyup.handler);
+            $(this).off("keyup", $.event.special.delayedkeyup.handler);
         },
 
         handler: function( event ) {
