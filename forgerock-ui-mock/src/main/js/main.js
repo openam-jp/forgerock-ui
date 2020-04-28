@@ -48,7 +48,7 @@ require.config({
         spin: "libs/spin-2.0.1-min",
         //jqueryorg: "libs/jquery-3.0.0-min",
         //jquery: "libs/jquery-migrate-3.1.0",
-        jquery: "libs/jquery-3.0.0-min",
+        jquery: "libs/jquery-3.4.1-min",
         "jquery-migrate": "libs/jquery-migrate-3.1.0",
         xdate: "libs/xdate-0.8-min",
         doTimeout: "libs/jquery.ba-dotimeout-1.0-min",

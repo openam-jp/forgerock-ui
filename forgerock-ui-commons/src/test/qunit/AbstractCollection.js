@@ -19,14 +19,16 @@
 define([
     "jquery-migrate",
     "sinon",
+    "qunit",
     "org/forgerock/commons/ui/common/main/AbstractCollection",
     "org/forgerock/commons/ui/common/main/ServiceInvoker"
-], function ($, sinon, AbstractCollection, ServiceInvoker) {
+], function ($, sinon, QUnit, AbstractCollection, ServiceInvoker) {
     QUnit.module('AbstractCollection Functions');
 
-    QUnit.asyncTest("query operations", function (assert) {
+    QUnit.test("query operations", function (assert) {
         var testCollection = new AbstractCollection(),
-            restCallArg;
+            restCallArg,
+            done = assert.async();
 
         testCollection.url = "/crestResource?_queryFilter=true";
 
@@ -89,7 +91,7 @@ define([
                 "correct data submitted to backend for next page");
         }).then(function () {
             ServiceInvoker.restCall.restore();
-            QUnit.start();
+            done();
         });
 
     });

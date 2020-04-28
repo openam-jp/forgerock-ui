@@ -18,18 +18,20 @@
 define([
     "jquery-migrate",
     "sinon",
+    "qunit",
     "org/forgerock/commons/ui/common/main/AbstractModel",
     "org/forgerock/commons/ui/common/main/ServiceInvoker"
-], function ($, sinon, AbstractModel, ServiceInvoker) {
+], function ($, sinon, QUnit, AbstractModel, ServiceInvoker) {
     QUnit.module('AbstractModel Functions');
 
-    QUnit.asyncTest("create with server-assigned id", function (assert) {
+    QUnit.test("create with server-assigned id", function (assert) {
         var testModel = new AbstractModel(),
             newRecord = {
                 "foo": "bar",
                 "hello": "world"
             },
-            restCallArg;
+            restCallArg,
+            done = assert.async();
 
         testModel.url = "/crestResource";
 
@@ -46,18 +48,19 @@ define([
             assert.equal(restCallArg.url, "/crestResource?_action=create&", "correct url used to create model");
             assert.equal(restCallArg.type, "POST", "correct method used to create model");
             ServiceInvoker.restCall.restore();
-            QUnit.start();
+            done();
         });
 
     });
 
-    QUnit.asyncTest("create with client-supplied id", function (assert) {
+    QUnit.test("create with client-supplied id", function (assert) {
         var testModel = new AbstractModel(),
             newRecord = {
                 "foo": "bar",
                 "hello": "world"
             },
-            restCallArg;
+            restCallArg,
+            done = assert.async();
 
         testModel.url = "/crestResource";
         testModel.id = "myCustomId";
@@ -75,13 +78,14 @@ define([
             assert.equal(restCallArg.headers["If-None-Match"], "*", "correct revision header provided");
             assert.equal(restCallArg.type, "PUT", "correct method used to create model");
             ServiceInvoker.restCall.restore();
-            QUnit.start();
+            done();
         })
     });
 
-    QUnit.asyncTest("read operation", function (assert) {
+    QUnit.test("read operation", function (assert) {
         var testModel = new AbstractModel(),
-            restCallArg;
+            restCallArg,
+            done = assert.async();
 
         testModel.url = "/crestResource";
         testModel.id = 1;
@@ -116,18 +120,19 @@ define([
         }).then(function () {
             assert.equal(testModel.get("addedByParseFunction"), true, "parse function successfully modified model content");
             ServiceInvoker.restCall.restore();
-            QUnit.start();
+            done();
         });
     });
 
-    QUnit.asyncTest("update operations", function (assert) {
+    QUnit.test("update operations", function (assert) {
         var testModel = new AbstractModel({
                 "_id": 1,
                 "_rev": 1,
                 "foo": "bar",
                 "hello": "world"
             }),
-            restCallArg;
+            restCallArg,
+            done = assert.async();
 
         testModel.url = "/crestResource";
 
@@ -144,18 +149,19 @@ define([
             assert.equal(restCallArg.headers["If-Match"], 1, "correct revision header provided");
             assert.equal(restCallArg.type, "PUT", "correct method used to update model");
             ServiceInvoker.restCall.restore();
-            QUnit.start();
+            done();
         });
     });
 
-    QUnit.asyncTest("delete operations", function (assert) {
+    QUnit.test("delete operations", function (assert) {
         var testModel = new AbstractModel({
                 "_id": 1,
                 "_rev": 1,
                 "foo": "bar",
                 "hello": "world"
             }),
-            restCallArg;
+            restCallArg,
+            done = assert.async();
 
         testModel.url = "/crestResource";
 
@@ -168,18 +174,19 @@ define([
             assert.equal(restCallArg.url, "/crestResource/1?", "correct url used to delete model");
             assert.equal(restCallArg.type, "DELETE", "correct method used to DELETE model");
             ServiceInvoker.restCall.restore();
-            QUnit.start();
+            done();
         });
     });
 
-    QUnit.asyncTest("patch operations", function (assert) {
+    QUnit.test("patch operations", function (assert) {
         var testModel = new AbstractModel({
                 "_id": 1,
                 "_rev": 1,
                 "foo": "bar",
                 "hello": "world"
             }),
-            restCallArg;
+            restCallArg,
+            done = assert.async();
 
         testModel.url = "/crestResource";
 
@@ -193,11 +200,11 @@ define([
             assert.equal(restCallArg.type, "PATCH", "correct method used to patch model");
             assert.equal(restCallArg.data, '[{"operation":"replace","field":"/foo","value":"baz"}]', "correct patch content provided");
             ServiceInvoker.restCall.restore();
-            QUnit.start();
+            done();
         });
     });
 
-    QUnit.test("custom get method to support JSONPointer", function () {
+    QUnit.test("custom get method to support JSONPointer", function (assert) {
         var testModel = new AbstractModel({
                 "_id": 1,
                 "_rev": 1,
@@ -206,9 +213,9 @@ define([
                     "hello": "world"
                 }
             });
-        QUnit.equal(testModel.get("simpleKey"), "simpleValue", "basic get behavior used to get simple value");
-        QUnit.equal(testModel.get("/simpleKey"), "simpleValue", "jsonpointer used to get simple value");
-        QUnit.equal(testModel.get("/foo/hello"), "world", "jsonpointer used to get deeply-nested value");
+        assert.equal(testModel.get("simpleKey"), "simpleValue", "basic get behavior used to get simple value");
+        assert.equal(testModel.get("/simpleKey"), "simpleValue", "jsonpointer used to get simple value");
+        assert.equal(testModel.get("/foo/hello"), "world", "jsonpointer used to get deeply-nested value");
     })
 
 });
