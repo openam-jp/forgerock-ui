@@ -87,7 +87,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js</url>
+                            <url>https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js</url>
                             <outputDirectory>${project.basedir}/target/external</outputDirectory>
                         </configuration>
                     </execution>
@@ -490,7 +490,7 @@
                             <file>${basedir}/target/external/require.min.js</file>
                             <groupId>jp.openam.commons.ui.libs</groupId>
                             <artifactId>requirejs</artifactId>
-                            <version>2.1.14</version>
+                            <version>2.3.6</version>
                             <packaging>js</packaging>
                             <generatePom>true</generatePom>
                             <classifier>min</classifier>
