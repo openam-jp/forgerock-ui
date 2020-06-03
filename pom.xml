@@ -132,7 +132,7 @@
             <dependency>
                 <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>jquery-migrate</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.0</version>
                 <type>js</type>
             </dependency>
             <dependency>
