@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2020 Open Source Solution Technology Corporation
  */
 
 define([
@@ -27,11 +28,6 @@ define([
         }
 
         obj.spinner = new Spinner().spin(document.getElementById('wrapper'));
-        $(".spinner").position({
-            of: $(window),
-            my: "center center",
-            at: "center center"
-        });
 
         if (priority && (!obj.priority || priority > obj.priority)) {
             obj.priority = priority;
