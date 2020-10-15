@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2020 Open Source Solution Technology Corporation
  */
 
 define([
@@ -31,22 +32,25 @@ define([
      * @param {String} [path] - cookie path.
      * @param {String|String[]} [domain] - cookie domain(s).
      * @param {Boolean} [secure] - is cookie secure.
+     * @param {String} [samesite] - cookie samesite.
      * @returns {String} created cookie.
      */
-    obj.createCookie = function (name, value, expirationDate, path, domain, secure) {
+    obj.createCookie = function (name, value, expirationDate, path, domain, secure, samesite) {
         var expirationDatePart,
             nameValuePart,
             pathPart,
             domainPart,
-            securePart;
+            securePart,
+            samesitePart;
 
         expirationDatePart = expirationDate ? ";expires=" + expirationDate.toGMTString() : "";
         nameValuePart = name + "=" + value;
         pathPart = path ? ";path=" + path : "";
         domainPart = domain ? ";domain=" + domain : "";
         securePart = secure ? ";secure" : "";
+        samesitePart = samesite ? "; SameSite=" + samesite : "";
 
-        return nameValuePart + expirationDatePart + pathPart + domainPart + securePart;
+        return nameValuePart + expirationDatePart + pathPart + domainPart + securePart + samesitePart;
     };
 
     /**
@@ -57,17 +61,18 @@ define([
      * @param {String} [path] - cookie path.
      * @param {String|String[]} [domain] - cookie domain(s). Use empty array for creating host-only cookies.
      * @param {Boolean} [secure] - is cookie secure.
+     * @param {String} [samesite] - cookie samesite.
      */
-    obj.setCookie = function (name, value, expirationDate, path, domains, secure) {
+    obj.setCookie = function (name, value, expirationDate, path, domains, secure, samesite) {
         if (!_.isArray(domains)) {
             domains = [domains];
         }
 
         if (domains.length === 0) {
-            document.cookie = obj.createCookie(name, value, expirationDate, path, undefined, secure);
+            document.cookie = obj.createCookie(name, value, expirationDate, path, undefined, secure, samesite);
         } else {
             _.each(domains, function(domain) {
-                document.cookie = obj.createCookie(name, value, expirationDate, path, domain, secure);
+                document.cookie = obj.createCookie(name, value, expirationDate, path, domain, secure, samesite);
             });
         }
     };
