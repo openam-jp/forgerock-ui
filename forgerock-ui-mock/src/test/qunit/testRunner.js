@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2020 Open Source Solution Technology Corporation
  */
 
 (function () {
@@ -38,11 +39,12 @@
         window.require = stashedRequire.original;
 
         require([
-            "jquery",
+            "jquery-migrate",
             "sinon",
             "org/forgerock/commons/ui/common/main/i18nManager",
-            "ThemeManager"
-        ], function ($, sinon, i18nManager, ThemeManager) {
+            "ThemeManager",
+            "qunit"
+        ], function ($, sinon, i18nManager, ThemeManager, QUnit) {
             sinon.stub(ThemeManager, "getTheme", function () {
                 return $.Deferred().resolve({path:""});
             });

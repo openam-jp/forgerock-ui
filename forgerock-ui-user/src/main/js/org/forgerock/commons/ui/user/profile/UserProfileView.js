@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "underscore",
     "form2js",
     "js2form",
@@ -53,7 +53,7 @@ define([
         },
 
         focusInput: function (event) {
-            $($(event.target).attr("href")).find(":input:not([readonly]):first").focus();
+            $($(event.target).attr("href")).find(":input:not([readonly]):first").trigger("focus");
         },
 
         updateRoute: function (event) {
@@ -169,7 +169,7 @@ define([
                 }, this);
 
                 selectedTab.tab('show');
-                this.$el.find("#" + selectedTabId).find(":input:not([readonly]):first").focus();
+                this.$el.find("#" + selectedTabId).find(":input:not([readonly]):first").trigger("focus");
 
                 if (callback) {
                     callback();

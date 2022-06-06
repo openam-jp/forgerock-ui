@@ -15,7 +15,7 @@
  */
 
 define( "org/forgerock/commons/ui/common/main/i18nManager", [
-    "jquery",
+    "jquery-migrate",
     "lodash",
     "require",
     "handlebars",

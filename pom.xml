@@ -88,7 +88,7 @@
                             </goals>
                             <phase>initialize</phase>
                             <configuration>
-                                <nodeVersion>v4.2.6</nodeVersion>
+                                <nodeVersion>v6.4.0</nodeVersion>
                                 <npmVersion>3.5.3</npmVersion>
                                 <!-- npmDownloadRoot>http://maven.forgerock.org/repo/api/npm/npm-virtual/npm/-/</npmDownloadRoot -->
                             </configuration>
@@ -125,9 +125,15 @@
             <dependency>
                 <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>jquery</artifactId>
-                <version>2.1.1</version>
+                <version>3.5.1</version>
                 <type>js</type>
                 <classifier>min</classifier>
+            </dependency>
+            <dependency>
+                <groupId>jp.openam.commons.ui.libs</groupId>
+                <artifactId>jquery-migrate</artifactId>
+                <version>3.3.0</version>
+                <type>js</type>
             </dependency>
             <dependency>
                 <groupId>jp.openam.commons.ui.libs</groupId>
@@ -145,7 +151,7 @@
             <dependency>
                 <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>requirejs</artifactId>
-                <version>2.1.14</version>
+                <version>2.3.6</version>
                 <classifier>min</classifier>
                 <type>js</type>
             </dependency>
@@ -352,7 +358,7 @@
             <dependency>
                 <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>qunit</artifactId>
-                <version>1.15.0</version>
+                <version>2.10.0</version>
                 <type>js</type>
                 <scope>test</scope>
             </dependency>
@@ -360,7 +366,7 @@
                 <groupId>jp.openam.commons.ui.libs</groupId>
                 <artifactId>qunit</artifactId>
                 <type>css</type>
-                <version>1.15.0</version>
+                <version>2.10.0</version>
                 <scope>test</scope>
             </dependency>
 

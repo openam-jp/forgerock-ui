@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "org/forgerock/commons/ui/common/util/DateUtil"
 ], function ($, dateUtil) {
 

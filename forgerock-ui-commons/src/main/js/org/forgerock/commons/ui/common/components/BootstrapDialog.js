@@ -12,16 +12,17 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions Copyrighted 2020 Open Source Solution Technology Corporation
  */
 
 define([
     "underscore",
-    "jquery",
+    "jquery-migrate",
     "bootstrap-dialog"
 ], function (_, $, BootstrapDialog) {
 
     function forceFocus (dialog) {
-        dialog.$modalContent.find("[autofocus]").focus();
+        dialog.$modalContent.find("[autofocus]").trigger("focus");
     }
 
     function setButtonStates (dialog) {

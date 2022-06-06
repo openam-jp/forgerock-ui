@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2020 Open Source Solution Technology Corporation
  */
 
 module.exports = function (grunt) {
@@ -22,6 +23,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-eslint");
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks("grunt-sync");
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
     var targetDirectory = "target/www",
         testTargetDirectory = "target/test",
@@ -77,7 +79,26 @@ module.exports = function (grunt) {
             }
         },
         qunit: {
-            all: [testTargetDirectory + "/index.html"]
+            options: {
+                puppeteer: {
+                    args: ['--no-sandbox']
+                }
+            },
+            all: {
+                options: {
+                    urls: [
+                        'http://localhost:8000/test/index.html'
+                    ]
+                }
+            }
+        },
+        connect: {
+            server: {
+                options: {
+                    port: 8000,
+                    base: 'target'
+                }
+            }
         },
         requirejs: {
             /**
@@ -159,8 +180,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask("build", ["eslint", "less", "requirejs", "sync:test", "qunit"]);
-    grunt.registerTask("build-dev", ["less", "sync", "qunit"]);
+    grunt.registerTask("build", ["eslint", "less", "requirejs", "sync:test", "connect", "qunit"]);
+    grunt.registerTask("build-dev", ["less", "sync", "connect", "qunit"]);
     grunt.registerTask("dev", ["build-dev", "watch"]);
     grunt.registerTask("default", "dev");
 };

@@ -12,14 +12,16 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2020 Open Source Solution Technology Corporation
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "lodash",
     "sinon",
+    "qunit",
     "org/forgerock/commons/ui/common/main/ValidatorsManager"
-], function ($, _, sinon, ValidatorsManager) {
+], function ($, _, sinon, QUnit, ValidatorsManager) {
     var container = $("<div>")
         .append("<input id='test' data-validator='testValidatorMethod' data-validation-dependents='dependent' data-validator-event='custom'>")
         .append("<input id='dependent' data-validator='testValidatorMethod'>");
@@ -42,7 +44,7 @@ define([
         }
     });
 
-    QUnit.test("bindValidators", function () {
+    QUnit.test("bindValidators", function (assert) {
         var callbackFunction = sinon.spy(),
             extraAfterValidatorsFunction = sinon.spy();
 
@@ -52,12 +54,12 @@ define([
 
         ValidatorsManager.bindValidators(container, callbackFunction);
 
-        QUnit.equal(ValidatorsManager.bindValidatorsForField.callCount, container.find(":input").length,
+        assert.equal(ValidatorsManager.bindValidatorsForField.callCount, container.find(":input").length,
             "bindValidatorsForField called once for each element in provided container");
 
-        QUnit.ok(callbackFunction.calledOnce, "callback function provided to bindValidators invoked once");
+        assert.ok(callbackFunction.calledOnce, "callback function provided to bindValidators invoked once");
 
-        QUnit.ok(extraAfterValidatorsFunction.calledOnce && extraAfterValidatorsFunction.calledWithExactly(container, callbackFunction),
+        assert.ok(extraAfterValidatorsFunction.calledOnce && extraAfterValidatorsFunction.calledWithExactly(container, callbackFunction),
             "function injected into afterBindValidators called once (with expected arguments) after bindValidators");
 
         // remove the spy we pushed onto the end
@@ -67,7 +69,7 @@ define([
         ValidatorsManager.bindValidatorsForField.restore();
     });
 
-    QUnit.test("bindValidatorsForField", function () {
+    QUnit.test("bindValidatorsForField", function (assert) {
         var field = container.find("#test"),
             eventsList;
 
@@ -75,32 +77,34 @@ define([
 
         eventsList = _.sortBy(_.keys($._data(field[0]).events));
 
-        QUnit.ok(_.isEqual(eventsList, ["blur", "change", "custom", "keyup", "paste", "validate"]),
+        assert.ok(_.isEqual(eventsList, ["blur", "change", "custom", "keyup", "paste", "validate"]),
             "custom and default events all bound to specified input field");
     });
 
-    QUnit.asyncTest("evaluateValidator", function () {
-        var field = container.find("#test");
+    QUnit.test("evaluateValidator", function (assert) {
+        var field = container.find("#test"),
+            done = assert.async();
 
         field.val("");
         ValidatorsManager.evaluateValidator("testValidatorMethod", field, container)
             .then(function (failures) {
-                QUnit.ok(failures.length === 1 && failures[0] === "DOES NOT PASS");
+                assert.ok(failures.length === 1 && failures[0] === "DOES NOT PASS");
             })
             .then(function () {
                 field.val("GOOD");
                 return ValidatorsManager.evaluateValidator("testValidatorMethod", field, container);
             })
             .then(function (failures) {
-                QUnit.ok(!failures);
-                QUnit.start();
+                assert.ok(!failures);
+                done();
             });
     });
 
-    QUnit.asyncTest("evaluateDependentFields", function () {
+    QUnit.test("evaluateDependentFields", function (assert) {
         var primary = container.find("#test"),
             dependent = container.find("#dependent"),
-            failureMessages = [];
+            failureMessages = [],
+            done = assert.async();
 
         primary.val("GOOD");
         dependent.val("BAD");
@@ -115,25 +119,26 @@ define([
 
         ValidatorsManager.evaluateDependentFields(primary, container)
             .then(function () {
-                QUnit.equal(dependent.attr("data-validation-status"), "error");
-                QUnit.ok(failureMessages.length === 1 && failureMessages[0] === "DOES NOT PASS");
+                assert.equal(dependent.attr("data-validation-status"), "error");
+                assert.ok(failureMessages.length === 1 && failureMessages[0] === "DOES NOT PASS");
             })
             .then(function () {
                 dependent.val("GOOD");
                 return ValidatorsManager.evaluateDependentFields(primary, container);
             })
             .then(function () {
-                QUnit.equal(dependent.attr("data-validation-status"), "ok");
-                QUnit.equal(failureMessages.length, 0);
-                QUnit.start();
+                assert.equal(dependent.attr("data-validation-status"), "ok");
+                assert.equal(failureMessages.length, 0);
+                done();
             });
     });
 
 
-    QUnit.asyncTest("evaluateAllValidatorsForField", function () {
+    QUnit.test("evaluateAllValidatorsForField", function (assert) {
         var primary = container.find("#test"),
             dependent = container.find("#dependent"),
-            failureMessages = [];
+            failureMessages = [],
+            done = assert.async();
 
         primary.val("BAD");
         dependent.val("BAD");
@@ -148,28 +153,28 @@ define([
 
         ValidatorsManager.evaluateAllValidatorsForField(primary, container)
             .then(function () {
-                QUnit.equal(primary.attr("data-validation-status"), "error");
-                QUnit.equal(dependent.attr("data-validation-status"), "error");
-                QUnit.ok(failureMessages.length === 1 && failureMessages[0] === "DOES NOT PASS");
+                assert.equal(primary.attr("data-validation-status"), "error");
+                assert.equal(dependent.attr("data-validation-status"), "error");
+                assert.ok(failureMessages.length === 1 && failureMessages[0] === "DOES NOT PASS");
             })
             .then(function () {
                 primary.val("GOOD");
                 return ValidatorsManager.evaluateAllValidatorsForField(primary, container);
             })
             .then(function () {
-                QUnit.equal(primary.attr("data-validation-status"), "ok");
-                QUnit.equal(dependent.attr("data-validation-status"), "error");
-                QUnit.ok(failureMessages.length === 1 && failureMessages[0] === "DOES NOT PASS");
+                assert.equal(primary.attr("data-validation-status"), "ok");
+                assert.equal(dependent.attr("data-validation-status"), "error");
+                assert.ok(failureMessages.length === 1 && failureMessages[0] === "DOES NOT PASS");
             })
             .then(function () {
                 dependent.val("GOOD");
                 return ValidatorsManager.evaluateAllValidatorsForField(primary, container);
             })
             .then(function () {
-                QUnit.equal(primary.attr("data-validation-status"), "ok");
-                QUnit.equal(dependent.attr("data-validation-status"), "ok");
-                QUnit.equal(failureMessages.length, 0);
-                QUnit.start();
+                assert.equal(primary.attr("data-validation-status"), "ok");
+                assert.equal(dependent.attr("data-validation-status"), "ok");
+                assert.equal(failureMessages.length, 0);
+                done();
             });
     });
 

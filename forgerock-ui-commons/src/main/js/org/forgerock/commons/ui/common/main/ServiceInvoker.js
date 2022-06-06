@@ -12,10 +12,11 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2020 Open Source Solution Technology Corporation
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "underscore",
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware",
     "org/forgerock/commons/ui/common/util/Constants",
@@ -55,7 +56,7 @@ define([
             rejectHandler;
 
         resolveHandler = function () {
-            promise.resolve.apply(promise, arguments);
+            return promise.resolve.apply(promise, arguments);
         };
 
         rejectHandler = function (jqXHR, textStatus, errorThrown) {
@@ -66,7 +67,7 @@ define([
                 // logged-in, resubmit their original request. Only do this if there
                 // isn't an errorsHandler for 401 included in the request.
                 if (jqXHR.status === 401 && !ErrorsHandler.matchError({status:401},options.errorsHandlers)) {
-                    EventManager.sendEvent(Constants.EVENT_SHOW_LOGIN_DIALOG, {
+                    return EventManager.sendEvent(Constants.EVENT_SHOW_LOGIN_DIALOG, {
                         authenticatedCallback : function () {
                             $.ajax(options).then(resolveHandler,rejectHandler);
                         }
@@ -79,11 +80,11 @@ define([
                         errorsHandlers: options.errorsHandlers
                     });
                     if(errorCallback) { errorCallback(jqXHR); }
-                    promise.reject.apply(promise, arguments);
+                    return promise.reject.apply(promise, arguments);
                 }
             } else {
                 if(errorCallback) { errorCallback(jqXHR); }
-                promise.reject.apply(promise, arguments);
+                return promise.reject.apply(promise, arguments);
             }
 
         };
@@ -99,12 +100,6 @@ define([
         }
 
         obj.applyDefaultHeadersIfNecessary(options, obj.configuration.defaultHeaders);
-
-        if (!options.suppressEvents) {
-            EventManager.sendEvent(Constants.EVENT_START_REST_CALL, {
-                suppressSpinner: options.suppressSpinner
-            });
-        }
 
         options.success = function (data, textStatus, jqXHR) {
             if(data && data.error) {
@@ -159,9 +154,15 @@ define([
             options.headers["Cache-Control"] = "no-cache";
         }
 
-        $.ajax(options).then(resolveHandler,rejectHandler);
-
-        return promise;
+        if (!options.suppressEvents) {
+            return EventManager.sendEvent(Constants.EVENT_START_REST_CALL, {
+                suppressSpinner: options.suppressSpinner
+            }).then(function () {
+                return $.ajax(options).then(resolveHandler,rejectHandler);
+            });
+        } else {
+            return $.ajax(options).then(resolveHandler,rejectHandler);
+        }
     };
 
     /**

@@ -15,7 +15,7 @@
  */
 
 define([
-    "jquery",
+    "jquery-migrate",
     "underscore",
     "libs/codemirror-4.10/lib/codemirror",
     "libs/codemirror-4.10/mode/xml/xml",

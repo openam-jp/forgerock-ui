@@ -223,6 +223,11 @@
         </dependency>
         <dependency>
             <groupId>jp.openam.commons.ui.libs</groupId>
+            <artifactId>jquery-migrate</artifactId>
+            <type>js</type>
+        </dependency>
+        <dependency>
+            <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>lodash</artifactId>
             <type>js</type>
             <classifier>min</classifier>
