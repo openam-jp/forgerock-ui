@@ -12,17 +12,20 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2022 OSSTech Corporation
  */
 
 define([
     "jquery",
+    "qunit",
     "org/forgerock/commons/ui/user/anonymousProcess/AnonymousProcessView",
     "org/forgerock/commons/ui/common/util/UIUtils"
-], function ($, AnonymousProcessView, UIUtils) {
+], function ($, QUnit, AnonymousProcessView, UIUtils) {
     QUnit.module('AnonymousProcessView Functions');
 
-    QUnit.asyncTest("buildQueryFilter", function () {
-        var el = $("#qunit-fixture #wrapper");
+    QUnit.test("buildQueryFilter", function (assert) {
+        var el = $("#qunit-fixture #wrapper"),
+            done = assert.async();
 
         UIUtils.renderTemplate(
             "templates/user/process/reset/userQuery-initial.html",
@@ -31,7 +34,7 @@ define([
             function () {
                 el.find(":input[name=userName]").val("bjensen");
 
-                QUnit.equal(
+                assert.equal(
                     AnonymousProcessView.prototype.walkTreeForFilterStrings(el.find("#filterContainer")),
                     'userName eq "bjensen"',
                     "Simple query filter generated from template matches expected input"
@@ -42,13 +45,13 @@ define([
                 el.find(":input[name=givenName]").val("Barbara");
                 el.find(":input[name=sn]").val("Jensen");
 
-                QUnit.equal(
+                assert.equal(
                     AnonymousProcessView.prototype.walkTreeForFilterStrings(el.find("#filterContainer")),
                     '(userName eq "bjensen" OR mail eq "bjensen@example.com" OR (givenName eq "Barbara" AND sn eq "Jensen"))',
                     "Complex query filter generated from template matches expected input"
                 );
 
-                QUnit.start();
+                done();
             }
         );
     });
