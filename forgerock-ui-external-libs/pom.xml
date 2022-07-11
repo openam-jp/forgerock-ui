@@ -397,9 +397,10 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/codemirror/CodeMirror/archive/4.10.0.zip</url>
+                            <url>https://codemirror.net/5/codemirror-4.10.zip</url>
                             <outputDirectory>${project.basedir}/target/external</outputDirectory>
-                            <outputFileName>CodeMirror-4.10.0.zip</outputFileName>
+                            <outputFileName>codemirror-4.10.zip</outputFileName>
+                            <sha1>bf0997d937c3a3a58387ae0b450edabb5a784edf</sha1>
                         </configuration>
                     </execution>
                 </executions>
@@ -949,10 +950,10 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/target/external/CodeMirror-4.10.0.zip</file>
+                            <file>${basedir}/target/external/codemirror-4.10.zip</file>
                             <groupId>jp.openam.commons.ui.libs</groupId>
-                            <artifactId>CodeMirror</artifactId>
-                            <version>4.10.0</version>
+                            <artifactId>codemirror5</artifactId>
+                            <version>4.10</version>
                             <packaging>zip</packaging>
                             <generatePom>true</generatePom>
                         </configuration>
