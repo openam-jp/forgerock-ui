@@ -50,6 +50,23 @@
         <developerConnection>scm:git:git@github.com:openam-jp/forgerock-ui.git</developerConnection>
         <url>https://github.com/openam-jp/forgerock-ui</url>
     </scm>
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/openam-jp/forgerock-ui</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/openam-jp/forgerock-ui</url>
+        </repository>
+    </distributionManagement>
 
     <modules>
         <module>forgerock-ui-commons</module>
