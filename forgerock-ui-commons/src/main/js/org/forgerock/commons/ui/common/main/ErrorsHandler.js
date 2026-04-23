@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2012-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -71,6 +72,14 @@ define([
                     )
                 )
                ) {
+                if(handler.event) {
+                    eventManager.sendEvent(handler.event, {handler: handler, error: error});
+                }
+
+                if(handler.message) {
+                    eventManager.sendEvent(constants.EVENT_DISPLAY_MESSAGE_REQUEST, handler.message);
+                }
+            } else if (!error.hasOwnProperty("responseObj")) {
                 if(handler.event) {
                     eventManager.sendEvent(handler.event, {handler: handler, error: error});
                 }
