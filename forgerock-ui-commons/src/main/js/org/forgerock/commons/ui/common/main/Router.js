@@ -12,10 +12,11 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
-    "underscore",
+    "lodash",
     "backbone",
     "org/forgerock/commons/ui/common/main/EventManager",
     "org/forgerock/commons/ui/common/util/Constants",
@@ -185,9 +186,9 @@ define([
     obj.init = function() {
         var Router = Backbone.Router.extend({
             initialize: function(routes) {
-                _.each(routes, function(route, key) {
+                _.forEach(routes, function(route, key) {
                     this.route(route.url, key, _.partial(this.routeCallback, route));
-                }, this);
+                }.bind(this));
             },
             routeCallback : function(route) {
                 if (!obj.checkRole(route)) { return; }

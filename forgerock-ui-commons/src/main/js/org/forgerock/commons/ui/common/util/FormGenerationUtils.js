@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -107,7 +108,7 @@ define([
     };
 
     obj.generateDateTypeField = function(elementName, elementDisplayName, value, isReadable, isWritable, isRequired,
-                                         dateFormat) {
+        dateFormat) {
         var fieldTagStartPart = '<div class="field">', fieldTagEndPart = '</div>', label = "", input, dateFormatInput,
             validatorMessageTag;
         if (isReadable) {
@@ -125,14 +126,14 @@ define([
     };
 
     obj.generateBooleanTypeField = function(elementName, elementDisplayName, value, isReadable, isWritable,
-                                            isRequired) {
+        isRequired) {
         var map = {'true' : $.t('common.form.true'), 'false' : $.t('common.form.false'), '__null' : ' '};
         return obj.generateEnumTypeField(elementName, elementDisplayName, map, value, isReadable, isWritable,
             isRequired);
     };
 
     obj.generateEnumTypeField = function(elementName, elementDisplayName, variableMap, value, isReadable, isWritable,
-                                         isRequired) {
+        isRequired) {
         var fieldTagStartPart = '<div class="field">', fieldTagEndPart = '</div>', label = '', select,
             additionalParams='', selectedKey, validatorMessageTag;
 
@@ -157,7 +158,7 @@ define([
     };
 
     obj.generateStringTypeField = function(elementName, elementDisplayName, handlebarsValueExpression, isReadable,
-                                           isWritable, isRequired) {
+        isWritable, isRequired) {
         var fieldTagStartPart = '<div class="field">', fieldTagEndPart = '</div>', label = "", input,
             validatorMessageTag;
         if (isReadable) {
@@ -169,14 +170,14 @@ define([
     };
 
     obj.generateLongTypeField = function(elementName, elementDisplayName, handlebarsValueExpression, isReadable,
-                                         isWritable, isRequired) {
+        isWritable, isRequired) {
         var fieldTagStartPart = '<div class="field">', fieldTagEndPart = '</div>', label = "", input,
             validatorMessageTag;
         if (isReadable) {
             label = this.generateLabel(elementDisplayName);
         }
         input = this.generateInput(elementName, handlebarsValueExpression, isReadable, isWritable, isRequired, "long");
-        validatorMessageTag = isReadable && isWritable ?  obj.standardErrorSpan + obj.standardErrorMessageTag : '';
+        validatorMessageTag = isReadable && isWritable ? obj.standardErrorSpan + obj.standardErrorMessageTag : '';
         return fieldTagStartPart + label + input + validatorMessageTag + fieldTagEndPart;
     };
 

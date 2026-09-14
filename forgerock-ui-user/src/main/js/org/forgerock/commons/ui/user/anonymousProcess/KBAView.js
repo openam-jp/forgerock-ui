@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -69,10 +70,8 @@ define([
         },
 
         getUnSelectedQuestions: function () {
-            var selectedQuestions = _(this.selectedQuestions)
-                .map(function (questionView) {
-                    return questionView.getSelectedQuestionId();
-                })
+            var selectedQuestions = _.chain(this.selectedQuestions)
+                .invokeMap("getSelectedQuestionId")
                 .compact()
                 .value();
 
@@ -104,8 +103,8 @@ define([
         reRenderAllQuestions: function () {
             var unSelectedQuestions = this.getUnSelectedQuestions();
 
-            _.each(this.selectedQuestions, _.bind(function (questionView) {
-                var currentViewQuestion = _.findWhere(this.allQuestions, { id: questionView.getSelectedQuestionId() }),
+            _.forEach(this.selectedQuestions, _.bind(function (questionView) {
+                var currentViewQuestion = _.find(this.allQuestions, { id: questionView.getSelectedQuestionId() }),
                     possibleQuestions = _.clone(unSelectedQuestions);
 
                 if (currentViewQuestion) {
@@ -127,7 +126,7 @@ define([
         },
 
         deleteQuestion: function (viewId) {
-            var questionView = _.findWhere(this.selectedQuestions, { id: viewId });
+            var questionView = _.find(this.selectedQuestions, { id: viewId });
 
             questionView.remove();
             this.selectedQuestions = _.without(this.selectedQuestions, questionView);
@@ -146,9 +145,7 @@ define([
         },
 
         getQuestions: function () {
-            return _.map(this.selectedQuestions, function (questionView) {
-                return questionView.getPair();
-            });
+            return _.invokeMap(this.selectedQuestions, "getPair");
         }
     });
 

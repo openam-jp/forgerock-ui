@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -34,7 +35,7 @@ define([
         var pointerList;
         pointerList = function (obj) {
             return _.chain(obj)
-                .pairs()
+                .toPairs()
                 .filter(function (p) {
                     return p[1] !== undefined;
                 })
@@ -49,7 +50,7 @@ define([
                         });
                     }
                 })
-                .flatten(true)
+                .flatten()
                 .value();
         };
 
@@ -152,8 +153,8 @@ define([
             }
         };
 
-        return _.reduce(set1, _.curry(traverseSet)(set2), true) &&
-                _.reduce(set2, _.curry(traverseSet)(set1), true);
+        return _.reduce(set1, _.curry(traverseSet, 3)(set2), true) &&
+                _.reduce(set2, _.curry(traverseSet, 3)(set1), true);
     };
 
     /**
@@ -202,7 +203,7 @@ define([
             newPointerMap = obj.toJSONPointerMap(newObject),
             previousPointerMap = obj.toJSONPointerMap(oldObject),
             newValues = _.chain(newPointerMap)
-                .pairs()
+                .toPairs()
                 .filter(function (p) {
                     if (_.isArray(previousPointerMap[p[0]]) && _.isArray(p[1])) {
                         return !obj.isEqualSet(previousPointerMap[p[0]], p[1]);
@@ -225,14 +226,14 @@ define([
                         };
                     if (_.isArray(newValueAtFinalPath) && _.isArray(oldValueAtFinalPath)) {
                         return setToPatchOperation(
-                                obj.findItemsNotInSet(newValueAtFinalPath, oldValueAtFinalPath),
-                                "add",
-                                finalPathToAdd + "/-" // add to set syntax
-                            ).concat(setToPatchOperation(
-                                obj.findItemsNotInSet(oldValueAtFinalPath, newValueAtFinalPath),
-                                "remove",
-                                finalPathToAdd
-                            ));
+                            obj.findItemsNotInSet(newValueAtFinalPath, oldValueAtFinalPath),
+                            "add",
+                            finalPathToAdd + "/-" // add to set syntax
+                        ).concat(setToPatchOperation(
+                            obj.findItemsNotInSet(oldValueAtFinalPath, newValueAtFinalPath),
+                            "remove",
+                            finalPathToAdd
+                        ));
                     } else {
                         return {
                             "operation": (oldValueAtFinalPath === undefined) ? "add" : "replace",
@@ -244,10 +245,10 @@ define([
                 .flatten()
                 // Filter out duplicates which might result from adding whole containers
                 // Have to stringify the patch operations to do object comparisons with uniq
-                .uniq(JSON.stringify)
+                .uniqBy(JSON.stringify)
                 .value(),
             removedValues = _.chain(previousPointerMap)
-                .pairs()
+                .toPairs()
                 .filter(function (p) {
                     return obj.getValueFromPointer(newObjectClosure, p[0]) === undefined;
                 })
@@ -257,7 +258,7 @@ define([
                 })
                 // Filter out duplicates which might result from deleting whole containers
                 // Have to stringify the patch operations to do object comparisons with uniq
-                .uniq(JSON.stringify)
+                .uniqBy(JSON.stringify)
                 .value();
 
         return newValues.concat(removedValues);

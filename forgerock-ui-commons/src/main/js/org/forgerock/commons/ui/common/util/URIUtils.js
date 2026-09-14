@@ -12,9 +12,10 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
-define(["underscore"], function (_) {
+define(["lodash"], function (_) {
     /**
      * @exports org/forgerock/commons/ui/common/util/URIUtils
      */
@@ -115,7 +116,7 @@ define(["underscore"], function (_) {
      */
     obj.parseQueryString = function (queryString) {
         if (queryString) {
-            return _.object(_.map(queryString.split("&"), function (pair) {
+            return _.fromPairs(_.map(queryString.split("&"), function (pair) {
                 return _.map(pair.split("=", 2), decodeURIComponent);
             }));
         }

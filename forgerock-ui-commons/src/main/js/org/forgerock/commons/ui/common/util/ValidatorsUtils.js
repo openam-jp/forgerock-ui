@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2012-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore"
+    "lodash"
 ], function($, _) {
     var obj = {};
 
@@ -30,8 +31,8 @@ define([
     obj.emailPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
     obj.setErrors = function(el, validatorType, msg) {
-        _.each(validatorType.split(' '), function (vt) {
-            _.each(el.find("span[data-for-validator=" + vt + "]"), function (input) {
+        _.forEach(validatorType.split(' '), function (vt) {
+            _.forEach(el.find("span[data-for-validator=" + vt + "]"), function (input) {
                 var $input = el.find(input),
                     type = $input.attr("data-for-req"),
                     span = $input.prev("span");

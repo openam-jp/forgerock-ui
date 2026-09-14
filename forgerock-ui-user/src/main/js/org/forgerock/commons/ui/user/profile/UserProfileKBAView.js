@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -33,7 +34,7 @@ define([
     ValidatorsManager) {
 
     var UserProfileKBAView = AbstractView.extend({
-        events: _.extend({
+        events: _.assign({
             "change .kba-pair :input": "checkChanges",
             "click #provideAnother": "addKBAQuestion",
             "click .delete-KBA-question": "deleteKBAQuestion"
@@ -141,44 +142,38 @@ define([
                 var formContent = form2js(form, ".", false);
                 // cannot rely upon a particular named field in the form content,
                 // so apply the logic to all fields found in the form
-                return _(formContent)
-                    .map(function (value, key) {
-                        if (_.isArray(value)) {
-                            return [
-                                key,
-                                _(value)
-                                    .map(function (kbaPair, index) {
-                                        var newPair = {};
+                return _.fromPairs(_.map(formContent, _.bind(function (value, key) {
+                    if (_.isArray(value)) {
+                        return [
+                            key,
+                            _.compact(_.map(value, _.bind(function (kbaPair, index) {
+                                var newPair = {};
 
-                                        // deleted pairs will be hidden
-                                        if ($(form).is(":visible")
-                                            && !$(form).find(".kba-pair[index="+index+"]:visible").length) {
-                                            // express their removal via an explicit undefined value in that position
-                                            return undefined;
-                                        }
+                                // deleted pairs will be hidden
+                                if ($(form).is(":visible")
+                                    && !$(form).find(".kba-pair[index="+index+"]:visible").length) {
+                                    // express their removal via an explicit undefined value in that position
+                                    return undefined;
+                                }
 
-                                        if (kbaPair.answer && kbaPair.answer.length) {
-                                            newPair.answer = kbaPair.answer;
-                                        } else if (this.data.user[key] && _.isObject(this.data.user[key][index])) {
-                                            newPair.answer = this.data.user[key][index].answer;
-                                        }
+                                if (kbaPair.answer && kbaPair.answer.length) {
+                                    newPair.answer = kbaPair.answer;
+                                } else if (this.data.user[key] && _.isObject(this.data.user[key][index])) {
+                                    newPair.answer = this.data.user[key][index].answer;
+                                }
 
-                                        if (kbaPair.questionId === "custom") {
-                                            newPair.customQuestion = kbaPair.customQuestion;
-                                        } else {
-                                            newPair.questionId = kbaPair.questionId;
-                                        }
-                                        return newPair;
-                                    }, this)
-                                    .compact()
-                                    .value()
-                            ];
-                        } else {
-                            return [key, value];
-                        }
-                    }, this)
-                    .object()
-                    .value();
+                                if (kbaPair.questionId === "custom") {
+                                    newPair.customQuestion = kbaPair.customQuestion;
+                                } else {
+                                    newPair.questionId = kbaPair.questionId;
+                                }
+                                return newPair;
+                            }, this)))
+                        ];
+                    } else {
+                        return [key, value];
+                    }
+                }, this)));
             } else {
                 return UserProfileView.getFormContent.call(this, form);
             }
@@ -227,25 +222,22 @@ define([
                 $("#kbaItems", form).empty().append($(newContent).find("#kbaItems").children());
                 js2form(form,
                     // use the form structure to find out which fields are defined for the kba form...
-                    _(form2js(form, ".", false))
-                     .map(function (value, key) {
-                         // omit the "answer" property from any array found there...
-                         if (_.isArray(this.data.user[key])) {
-                             return [
-                                 key,
-                                 _.map(this.data.user[key], function (kbaPair) {
-                                     return _.omit(kbaPair, "answer");
-                                 })
-                             ];
-                         } else {
-                             return [key, this.data.user[key]];
-                         }
-                     }, this)
-                     .object()
-                     .value()
+                    _.fromPairs(_.map(form2js(form, ".", false), _.bind(function (value, key) {
+                        // omit the "answer" property from any array found there...
+                        if (_.isArray(this.data.user[key])) {
+                            return [
+                                key,
+                                _.map(this.data.user[key], function (kbaPair) {
+                                    return _.omit(kbaPair, "answer");
+                                })
+                            ];
+                        } else {
+                            return [key, this.data.user[key]];
+                        }
+                    }, this)))
                 );
 
-                _.each($(".kba-questions", form), function (kbaSelect) {
+                _.forEach($(".kba-questions", form), function (kbaSelect) {
                     var customQuestionContainer = $(kbaSelect).closest(".kba-pair").find(".custom-question"),
                         customQuestionValue = customQuestionContainer.find(":input").val();
                     if (customQuestionValue !== "") {
@@ -264,7 +256,7 @@ define([
         }
     });
 
-    UserProfileKBAView.prototype = _.extend(Object.create(UserProfileView), UserProfileKBAView.prototype);
+    UserProfileKBAView.prototype = _.assign(Object.create(UserProfileView), UserProfileKBAView.prototype);
 
     return new UserProfileKBAView();
 });

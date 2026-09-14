@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -33,16 +34,15 @@ define([
             "type": "PATCH",
             "url": "user/" + Configuration.loggedUser.id,
             "data": JSON.stringify(
-                _(user)
-                 .map(function (value, key) {
-                     return {
-                         "operation": "replace",
-                         "field": "/" + key,
-                         // replace the whole value, rather than just the parts that have changed,
-                         // since there is no consistent way to target items in a set across the stack
-                         "value": value
-                     };
-                 })
+                _.map(user, function (value, key) {
+                    return {
+                        "operation": "replace",
+                        "field": "/" + key,
+                        // replace the whole value, rather than just the parts that have changed,
+                        // since there is no consistent way to target items in a set across the stack
+                        "value": value
+                    };
+                })
             )
         }).then(function (updatedUser) {
             return Configuration.loggedUser.save(updatedUser, {"silent": true});

@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 /**
@@ -29,7 +30,7 @@
  */
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "backgrid-filter",
     "org/forgerock/commons/ui/common/backgrid/Backgrid"
 ], function ($, _, BackgridFilter, Backgrid) {
@@ -38,7 +39,7 @@ define([
          * Overriding the "keyup input[type=search]" event on ServerSideFilter here
          * to accommodate the ability to filter as input is typed into the filter field
          */
-        events: _.extend(Backgrid.Extension.ServerSideFilter.prototype.events, {
+        events: _.assign(Backgrid.Extension.ServerSideFilter.prototype.events, {
             "keyup input[type=search]": "keyupSearch"
         }),
         keyupSearch: function (e) {

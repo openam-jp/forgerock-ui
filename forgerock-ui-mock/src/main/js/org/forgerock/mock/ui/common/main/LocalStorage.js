@@ -12,13 +12,14 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 /**
  * Local storage helper.
  */
 define([
-    "underscore"
+    "lodash"
 ], function (_) {
     var mockPrefix = 'forgerock-mock-';
 
@@ -58,14 +59,14 @@ define([
                     pathParts;
 
                 if (item) {
-                    _.each(data, function (patchEntry) {
+                    _.forEach(data, function (patchEntry) {
                         pathParts = _.filter(patchEntry.field.split('/'), function (part) {
                             return part.length > 0;
                         });
 
                         node = item;
 
-                        _.each(pathParts, function (part, index) {
+                        _.forEach(pathParts, function (part, index) {
                             if (index !== (pathParts.length-1)) {
                                 if (node[part] === undefined) {
                                     node[part] = {};
