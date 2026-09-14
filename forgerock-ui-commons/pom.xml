@@ -229,6 +229,12 @@
         </dependency>
         <dependency>
             <groupId>jp.openam.commons.ui.libs</groupId>
+            <artifactId>underscore</artifactId>
+            <type>js</type>
+            <classifier>min</classifier>
+        </dependency>
+        <dependency>
+            <groupId>jp.openam.commons.ui.libs</groupId>
             <artifactId>spin</artifactId>
             <type>js</type>
             <classifier>min</classifier>

@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -66,7 +67,7 @@ define([
         if (domains.length === 0) {
             document.cookie = obj.createCookie(name, value, expirationDate, path, undefined, secure);
         } else {
-            _.each(domains, function(domain) {
+            _.forEach(domains, function(domain) {
                 document.cookie = obj.createCookie(name, value, expirationDate, path, domain, secure);
             });
         }

@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "form2js",
     "js2form",
     "org/forgerock/commons/ui/common/main/AbstractView",
@@ -129,10 +130,10 @@ define([
                         } else {
                             return false;
                         }
-                    }, this)
-                    .map(function (attr) {
+                    })
+                    .map(_.bind(function (attr) {
                         return this.$el.find("label[for=input-"+attr+"]").text();
-                    }, this)
+                    }, this))
                     .value();
 
                 if (changedProtected.length === 0) {
@@ -157,16 +158,16 @@ define([
                     selectedTab = this.$el.find("ul.nav-tabs a[href='#"+selectedTabId+"']");
                 this.changesPendingWidgets = {};
 
-                _.each(this.$el.find("form"), this.reloadFormData, this);
+                _.forEach(this.$el.find("form"), _.bind(this.reloadFormData, this));
 
-                _.each(this.$el.find("form"), function (form) {
+                _.forEach(this.$el.find("form"), function (form) {
                     this.changesPendingWidgets[$(form).attr('id')] = ChangesPending.watchChanges({
                         element: $(".changes-pending", form),
                         watchedObj: { subform: this.getFormContent(form) },
                         watchedProperties: ["subform"],
                         alertClass: "alert-warning alert-sm"
                     });
-                }, this);
+                }.bind(this));
 
                 selectedTab.tab('show');
                 this.$el.find("#" + selectedTabId).find(":input:not([readonly]):first").focus();

@@ -1,6 +1,13 @@
 {
     "root": true,
     "extends": "forgerock",
+    "plugins": ["lodash"],
+    "settings": {
+        "lodash": {
+            "version": 4,
+            "pragma": "_"
+        }
+    },
     "env": {
         "amd": true,
         "browser": true
@@ -13,6 +20,17 @@
          * Violating these rules will cause the build to fail.
          * --------------------------------------------------------------------------------
          */
+
+        "no-empty-label": 0,
+        "space-return-throw-case": 0,
+
+        "lodash/callback-binding": 2,
+        "lodash/chain-style": [2, "explicit"],
+        "lodash/no-double-unwrap": 2,
+        "lodash/no-extra-args": 2,
+        "lodash/prefer-invoke-map": 2,
+        "lodash/preferred-alias": 2,
+        "lodash/unwrap": 2,
 
         "array-bracket-spacing": [2, "never"],
         "indent": [2, 4, {

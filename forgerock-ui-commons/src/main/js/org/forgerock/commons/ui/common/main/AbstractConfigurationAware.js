@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -43,9 +44,9 @@ define([
             all available.
         */
         return $.when.apply($, _.map(configuration.loader, function (mapToLoad) {
-            return $.when.apply($, _.map(_.pairs(mapToLoad), function (loadPair) {
+            return $.when.apply($, _.map(_.toPairs(mapToLoad), function (loadPair) {
                 return ModuleLoader.load(loadPair[1]).then(function (loaded) {
-                    return _.extend(configuration[loadPair[0]], loaded);
+                    return _.assign(configuration[loadPair[0]], loaded);
                 });
             }));
         }));

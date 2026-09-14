@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -24,7 +25,7 @@ define([
             this.setElement($('<div id="CommonConfirmationDialog"></div>'));
             this.title = title;
             this.message = msg;
-            this.actions =  [
+            this.actions = [
                 {
                     label: $.t("common.form.cancel"),
                     action: function (dialogRef) {

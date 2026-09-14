@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "backbone",
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware",
     "org/forgerock/commons/ui/common/main/AbstractView",
@@ -26,7 +27,7 @@ define([
     "org/forgerock/commons/ui/common/main/Router",
     "NavigationFilter"
 ], function($, _, Backbone, AbstractConfigurationAware, AbstractView, Configuration, EventManager, ModuleLoader,
-            Router, NavigationFilter) {
+    Router, NavigationFilter) {
     var obj = new AbstractConfigurationAware(),
 
         getUserName = function () {
@@ -177,7 +178,7 @@ define([
                             return;
                         }
 
-                        this.data.admin = _.contains(Configuration.loggedUser.uiroles, "ui-admin");
+                        this.data.admin = _.includes(Configuration.loggedUser.uiroles, "ui-admin");
 
                         this.data.userBar = _.chain(obj.configuration.userBar)
                             .map(function (link) {
@@ -226,7 +227,7 @@ define([
                     return;
                 }
 
-                _.each(context.urls, function(navObj) {
+                _.forEach(context.urls, function(navObj) {
                     var roles = _.intersection(Configuration.loggedUser.uiroles, navObj.visibleToRoles),
                         userHasRole = roles.length > 0;
                     if(navObj.visibleToRoles && !userHasRole) {
@@ -243,7 +244,7 @@ define([
                     if (navObj.dropdown !== true){
 
                         if (baseActive && navObj.urls) {
-                            _.each(navObj.urls, function(subUrl) {
+                            _.forEach(navObj.urls, function(subUrl) {
                                 self.data.subNav.push(self.buildNavElement(subUrl, self.isCurrent(subUrl.url)));
                             });
 
@@ -290,9 +291,9 @@ define([
                 if (navObj.dropdown === true) {
                     navElement.dropdown = true;
 
-                    _.each(navObj.urls, function(obj){
-                        subs.push(self.buildNavElement(obj, this.isCurrent(obj.url)));
-                    }, this);
+                    _.forEach(navObj.urls, function(obj){
+                        subs.push(self.buildNavElement(obj, self.isCurrent(obj.url)));
+                    });
 
                     navElement.urls = subs;
                 }

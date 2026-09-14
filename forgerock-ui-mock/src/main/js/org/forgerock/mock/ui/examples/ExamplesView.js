@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "libs/codemirror-4.10/lib/codemirror",
     "libs/codemirror-4.10/mode/xml/xml",
     "libs/codemirror-4.10/mode/javascript/javascript",
@@ -24,12 +25,12 @@ define([
     "selectize",
     "org/forgerock/commons/ui/common/main/AbstractView"
 ], function($, _,
-            CodeMirror,
-            xmlmode,
-            jsmode,
-            bootstrap,
-            selectize,
-            AbstractView) {
+    CodeMirror,
+    xmlmode,
+    jsmode,
+    bootstrap,
+    selectize,
+    AbstractView) {
 
     var ExamplesView = AbstractView.extend({
         template: "templates/mock/ExamplesTemplate.html",
@@ -108,7 +109,7 @@ define([
 
             var target = $(event.target);
 
-            target =  $(target.attr("href"));
+            target = $(target.attr("href"));
 
             if (target.length) {
                 $('html,body').animate({

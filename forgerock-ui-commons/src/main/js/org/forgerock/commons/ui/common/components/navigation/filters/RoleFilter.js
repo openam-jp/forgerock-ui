@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 /**
@@ -34,7 +35,7 @@ define([
 
                 linkHasNoRole = !link.role;
                 userHasNecessaryRole = link.role && Configuration.loggedUser
-                    && _.contains(Configuration.loggedUser.uiroles, link.role);
+                    && _.includes(Configuration.loggedUser.uiroles, link.role);
 
                 if (linkHasNoRole || userHasNecessaryRole) {
                     return links[linkName];

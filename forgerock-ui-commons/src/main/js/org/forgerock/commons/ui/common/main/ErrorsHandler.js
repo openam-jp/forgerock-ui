@@ -15,7 +15,7 @@
  */
 
 define([
-    "underscore",
+    "lodash",
     "jquery",
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware",
     "org/forgerock/commons/ui/common/main/EventManager",
@@ -70,7 +70,7 @@ define([
                         )
                     )
                 )
-               ) {
+            ) {
                 if(handler.event) {
                     eventManager.sendEvent(handler.event, {handler: handler, error: error});
                 }

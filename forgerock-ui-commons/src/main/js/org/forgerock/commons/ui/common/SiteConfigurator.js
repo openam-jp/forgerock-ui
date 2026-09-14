@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware",
     "org/forgerock/commons/ui/common/util/Constants",
     "org/forgerock/commons/ui/common/main/EventManager",
@@ -59,7 +60,7 @@ define([
 
     obj.processConfiguration = function(config) {
         // whatever settings were found will be saved in globalData
-        _.extend(conf.globalData, config);
+        _.assign(conf.globalData, config);
 
         if (config.defaultNotificationType) {
             conf.defaultType = config.defaultNotificationType;

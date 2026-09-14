@@ -12,10 +12,11 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
-    "underscore",
+    "lodash",
     "org/forgerock/commons/ui/common/util/Constants",
     "org/forgerock/commons/ui/common/main/Configuration",
     "org/forgerock/commons/ui/common/main/ServiceInvoker"
@@ -120,7 +121,7 @@ define([
      * Discovers differences between new and old object and invokes patch action only on attributes which are not equal.
      */
     obj.prototype.patchEntityDifferences = function(queryParameters, oldObject, newObject, successCallback,
-                                                    errorCallback, noChangesCallback, errorsHandlers) {
+        errorCallback, noChangesCallback, errorsHandlers) {
 
         var differences = this.getDifferences(oldObject, newObject);
         if(!differences.length){
@@ -138,7 +139,7 @@ define([
      * object {"operation": "replace", "field": "fieldname", value: "value" }
      */
     obj.prototype.patchEntity = function(queryParameters, patchDefinition, successCallback, errorCallback,
-                                         noChangesCallback, errorsHandlers) {
+        noChangesCallback, errorsHandlers) {
         //simple transformation
         var i;
         for(i = 0; i < patchDefinition.length; i++) {
@@ -162,7 +163,7 @@ define([
      *  Patches single attribute
      */
     obj.prototype.patchEntityAttribute = function(queryParameters, attributeName, newValue, successCallback,
-                                                  errorCallback, noChangesCallback) {
+        errorCallback, noChangesCallback) {
         return this.patchEntity(queryParameters, [{operation: "replace", field: attributeName, value: newValue}],
             successCallback, errorCallback, noChangesCallback);
     };

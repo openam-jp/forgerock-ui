@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "require",
     "handlebars",
     "i18next",
@@ -87,7 +88,7 @@ define([
         });
     };
 
-     /**
+    /**
       * @deprecated
       * @see Use {@link module:org/forgerock/commons/ui/common/util/UIUtils.compileTemplate}
       */
@@ -137,7 +138,7 @@ define([
             var promises = [];
 
             if (theme.path) {
-                _.each(urls, function (templateUrl) {
+                _.forEach(urls, function (templateUrl) {
                     var urlWithPath = theme.path + templateUrl;
                     promises.push(
                         fetchAndSaveTemplate(urlWithPath, urlWithPath).then(null, function fallBackToDefaultPath() {
@@ -146,7 +147,7 @@ define([
                         }));
                 });
             } else {
-                _.each(urls, function (templateUrl) {
+                _.forEach(urls, function (templateUrl) {
                     promises.push(fetchAndSaveTemplate(templateUrl, templateUrl));
                 });
             }
@@ -194,7 +195,7 @@ define([
      * Loads all the Handlebars partials defined in the "partialUrls" attribute of this module's configuration
      */
     obj.preloadInitialPartials = function() {
-        _.each(obj.configuration.partialUrls, function(url) {
+        _.forEach(obj.configuration.partialUrls, function(url) {
             obj.preloadPartial(url);
         });
     };
@@ -376,9 +377,9 @@ define([
     Handlebars.registerHelper('checkbox', function(map, name) {
         var ret = "<div class='checkboxList' id='"+name+"'><ol>", idx,
             sortedMap = _.chain(map)
-                            .pairs()
-                            .sortBy(function (arr) { return arr[1]; })
-                            .value();
+                .toPairs()
+                .sortBy(function (arr) { return arr[1]; })
+                .value();
 
         for(idx=0;idx<sortedMap.length;idx++) {
             ret += '<li><input type="checkbox" name="'+ name +'" value="'+ sortedMap[idx][0] +'" id="'+ name +'_'
@@ -604,7 +605,7 @@ define([
          */
         "findByValues": function(collection, property, values) {
             return _.filter(collection, function(item) {
-                return _.contains(values, item[property]);
+                return _.includes(values, item[property]);
             });
         },
 
@@ -624,7 +625,7 @@ define([
          */
         "removeByValues": function(collection, property, values) {
             return _.reject(collection, function(item) {
-                return _.contains(values, item[property]);
+                return _.includes(values, item[property]);
             });
         },
 
@@ -637,7 +638,7 @@ define([
             return regexp.test(string);
         }
 
-    });
+    }, { chain: false });
 
     return obj;
 });

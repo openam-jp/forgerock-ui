@@ -12,10 +12,11 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
-    "underscore",
+    "lodash",
     "jquery",
     "bootstrap-dialog"
 ], function (_, $, BootstrapDialog) {
@@ -25,7 +26,7 @@ define([
     }
 
     function setButtonStates (dialog) {
-        _.each(dialog.options.buttons, function(button) {
+        _.forEach(dialog.options.buttons, function(button) {
             if (button.disabled === true) {
                 dialog.getButton(button.id).disable();
             }
@@ -53,7 +54,7 @@ define([
     obj.SIZE_WIDE = BootstrapDialog.SIZE_WIDE;
     obj.SIZE_LARGE = BootstrapDialog.SIZE_LARGE;
 
-    _.each(["show", "confirm", "warning", "danger", "success"], function (method) {
+    _.forEach(["show", "confirm", "warning", "danger", "success"], function (method) {
 
         obj[method] = function (options) {
 

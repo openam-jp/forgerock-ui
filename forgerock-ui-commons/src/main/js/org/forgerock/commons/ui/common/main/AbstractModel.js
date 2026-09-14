@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "backbone",
     "org/forgerock/commons/ui/common/util/ObjectUtil",
     "org/forgerock/commons/ui/common/main/ServiceInvoker"
@@ -70,7 +71,7 @@ define([
             };
             switch (method) {
                 case "create":
-                    return ServiceInvoker.restCall(_.extend(
+                    return ServiceInvoker.restCall(_.assign(
                         {
                             data: JSON.stringify(model.toJSON())
                         },
@@ -93,7 +94,7 @@ define([
                         options
                     )).then(parseResponse);
                 case "read":
-                    return ServiceInvoker.restCall(_.extend(
+                    return ServiceInvoker.restCall(_.assign(
                         {
                             "url" : model.url + "/" + model.id + "?" + $.param(model.additionalParameters),
                             "type": "GET"
@@ -101,7 +102,7 @@ define([
                         options
                     )).then(parseResponse);
                 case "update":
-                    return ServiceInvoker.restCall(_.extend(
+                    return ServiceInvoker.restCall(_.assign(
                         {
                             "type": "PUT",
                             "data": JSON.stringify(model.toJSON()),
@@ -113,7 +114,7 @@ define([
                         options
                     )).then(parseResponse);
                 case "patch":
-                    return ServiceInvoker.restCall(_.extend(
+                    return ServiceInvoker.restCall(_.assign(
                         {
                             "url" : model.url + "/" + model.id + "?" + $.param(model.additionalParameters),
                             "type": "PATCH",
@@ -126,7 +127,7 @@ define([
                         options
                     )).then(parseResponse);
                 case "delete":
-                    return ServiceInvoker.restCall(_.extend(
+                    return ServiceInvoker.restCall(_.assign(
                         {
                             "url" : model.url + "/" + model.id + "?" + $.param(model.additionalParameters),
                             "type": "DELETE",
@@ -150,7 +151,7 @@ define([
             }
          */
         setAdditionalParameters: function (parametersMap) {
-            _.each(_.keys(parametersMap), function (key) {
+            _.forEach(_.keys(parametersMap), function (key) {
                 if (!_.isString(parametersMap[key])) {
                     throw "Cannot set non-string value as additional parameter " + key;
                 }

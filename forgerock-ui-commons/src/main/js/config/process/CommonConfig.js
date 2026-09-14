@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -33,7 +34,7 @@ define([
                 "org/forgerock/commons/ui/common/main/i18nManager"
             ],
             processDescription: function(event, Router, Configuration, UIUtils, CookieHelper, SessionManager,
-                                         i18nManager) {
+                i18nManager) {
                 var postSessionCheck = function () {
                         UIUtils.preloadInitialTemplates();
                         UIUtils.preloadInitialPartials();
@@ -204,7 +205,7 @@ define([
                 "org/forgerock/commons/ui/common/main/ViewManager"
             ],
             processDescription: function(event, Configuration, ModuleLoader, Navigation, Router, SiteConfigurator,
-                                         SpinnerManager, ViewManager) {
+                SpinnerManager, ViewManager) {
                 var route = event.route,
                     params = event.args,
                     callback = event.callback,

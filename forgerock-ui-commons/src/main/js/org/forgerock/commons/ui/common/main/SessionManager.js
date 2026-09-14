@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "org/forgerock/commons/ui/common/util/CookieHelper",
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware",
     "org/forgerock/commons/ui/common/util/ModuleLoader"
@@ -27,7 +28,7 @@ define([
         // resets the session cookie to discard old session that may still exist
         cookieHelper.deleteCookie("session-jwt", "/", "");
         return ModuleLoader.load(obj.configuration.loginHelperClass).then(function (helper) {
-            return ModuleLoader.promiseWrapper(_.bind(_.curry(helper.login)(params), helper), {
+            return ModuleLoader.promiseWrapper(_.bind(_.curry(helper.login, 3)(params), helper), {
                 success: successCallback,
                 error: errorCallback
             });

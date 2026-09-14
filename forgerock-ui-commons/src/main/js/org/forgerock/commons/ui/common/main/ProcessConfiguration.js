@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "org/forgerock/commons/ui/common/util/Constants",
     "org/forgerock/commons/ui/common/main/EventManager",
     "org/forgerock/commons/ui/common/main/Configuration",
@@ -51,26 +52,26 @@ define([
             .then(function () {
 
                 $.when.apply($, _.map(obj.configuration.processConfigurationFiles, ModuleLoader.load))
-                .then(function () {
+                    .then(function () {
 
-                    var // all processes
-                        processArray = _.flatten(_.toArray(arguments)),
-                        // processes which override the default of the same name
-                        overrideArray = _.filter(processArray, function (process) {
-                            return !!process.override;
+                        var // all processes
+                            processArray = _.flatten(_.toArray(arguments)),
+                            // processes which override the default of the same name
+                            overrideArray = _.filter(processArray, function (process) {
+                                return !!process.override;
+                            });
+
+                        // remove those processes which have been overridden
+                        processArray = _.reject(processArray, function (process) {
+                            return !process.override && _.find(overrideArray, function (override) {
+                                return override.startEvent === process.startEvent && !!override.override;
+                            });
                         });
 
-                    // remove those processes which have been overridden
-                    processArray = _.reject(processArray, function (process) {
-                        return !process.override && _.find(overrideArray, function (override) {
-                            return override.startEvent === process.startEvent && !!override.override;
-                        });
+                        _.map(processArray, obj.callRegisterListenerFromConfig);
+
+                        eventManager.sendEvent(constants.EVENT_READ_CONFIGURATION_REQUEST);
                     });
-
-                    _.map(processArray, obj.callRegisterListenerFromConfig);
-
-                    eventManager.sendEvent(constants.EVENT_READ_CONFIGURATION_REQUEST);
-                });
 
             });
     };

@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2012-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -44,9 +45,9 @@ define([
             obj.bindValidatorsForField(containerElement, $(this));
         });
 
-        _.each(obj.afterBindValidators, function (fn) {
+        _.forEach(obj.afterBindValidators, function (fn) {
             fn.apply(this, _arguments);
-        }, this);
+        }.bind(this));
     };
 
     // array of functions to invoke (in order) after bindValidators is executed
@@ -54,7 +55,7 @@ define([
     obj.afterBindValidators = [
         // generic method for executing a callback function
         function () {
-            _.each(_.toArray(arguments), function (arg) {
+            _.forEach(_.toArray(arguments), function (arg) {
                 if (_.isFunction(arg)) {
                     arg();
                 }
@@ -93,12 +94,10 @@ define([
             return $.when.apply($, _.map(validatorsRegistered.split(" "), function (validatorName) {
                 return obj.evaluateValidator(validatorName, element, container);
             })).then(function () {
-                var allFailures = _(arguments)
+                var allFailures = _.chain(arguments)
                     .toArray()
                     .flatten()
-                    .filter(function (value) {
-                        return value !== undefined;
-                    })
+                    .filter(function (value) { return value !== undefined; })
                     .uniq()
                     .value();
 
@@ -149,8 +148,8 @@ define([
         var deferred = $.Deferred(),
             validatorConfig = this.configuration.validators[validatorName],
             parameters = [
-                container,  // the element containing the element as well as any related elements
-                element,    // the specific input within the form being validated
+                container, // the element containing the element as well as any related elements
+                element, // the specific input within the form being validated
                 _.bind(deferred.resolve, deferred) // resolve the deferred object with the validator callback response
             ];
 

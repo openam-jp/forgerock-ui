@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -58,7 +59,7 @@ define([
 
             var creds = { "userName": "foo", "password": "bar" };
 
-            ModuleLoader.promiseWrapper(_.curry(login)(creds)).then(
+            ModuleLoader.promiseWrapper(_.curry(login, 3)(creds)).then(
                 function (user) {
                     console.log("Successfully logged in with user", user);
                 },
