@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -42,7 +43,7 @@ define([
          * @param {Object}  parent                           - parent jQuery element
          */
         render: function (data, parent) {
-            _.extend(this.data, data);
+            _.assign(this.data, data);
 
             this.data.index = this.id;
 
@@ -105,7 +106,7 @@ define([
          *                                                     the required minimum number of questions
          */
         updateQuestionWithNewData: function (data) {
-            _.extend(this.data, data);
+            _.assign(this.data, data);
 
             UIUtils.fillTemplateWithData(this.template, this.data).then(_.bind(function (template) {
                 this.$el.html(template);

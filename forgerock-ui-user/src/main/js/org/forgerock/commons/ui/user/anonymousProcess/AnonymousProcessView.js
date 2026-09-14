@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2015-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "form2js",
     "org/forgerock/commons/ui/common/main/AbstractView",
     "org/forgerock/commons/ui/user/delegates/AnonymousProcessDelegate",
@@ -26,7 +27,7 @@ define([
     "org/forgerock/commons/ui/common/util/UIUtils",
     "org/forgerock/commons/ui/common/main/ValidatorsManager"
 ], function($, _, form2js, AbstractView, AnonymousProcessDelegate, Constants, EventManager, Router, UIUtils,
-            ValidatorsManager) {
+    ValidatorsManager) {
 
     /**
      * Given a position in the DOM, look for children elements which comprise a
@@ -41,11 +42,11 @@ define([
             return node.attr('name') + ' eq "' + node.val().replace('"', '\\"') + '"';
         } else if (node.hasClass("filter-group")) {
             groupValues = _.chain(node.find(">.form-group>.filter-value, >.filter-group"))
-                           .map(walkTreeForFilterStrings)
-                           .filter(function (value) {
-                               return value.length > 0;
-                           })
-                           .value();
+                .map(walkTreeForFilterStrings)
+                .filter(function (value) {
+                    return value.length > 0;
+                })
+                .value();
 
             if (groupValues.length === 0) {
                 return "";
@@ -153,9 +154,9 @@ define([
         },
 
         setTranslationBase: function () {
-            _.each(["title", "completed", "failed", "tryAgain", "return"], function (key) {
+            _.forEach(["title", "completed", "failed", "tryAgain", "return"], function (key) {
                 this.data.i18n[key] = this.i18nBase + "." + key;
-            }, this);
+            }.bind(this));
         },
 
         restartProcess: function (e) {
@@ -163,7 +164,7 @@ define([
             delete this.delegate;
             delete this.stateData;
             EventManager.sendEvent(Constants.EVENT_CHANGE_VIEW, {
-                route: _.extend({}, Router.currentRoute, { forceUpdate: true })
+                route: _.assign({}, Router.currentRoute, { forceUpdate: true })
             });
         },
 
@@ -190,11 +191,11 @@ define([
                 }, this);
 
             if (_.has(response, "requirements")) {
-                this.stateData = _.extend({
+                this.stateData = _.assign({
                     requirements: response.requirements
                 }, this.data);
             } else {
-                this.stateData = _.extend({
+                this.stateData = _.assign({
                     status: response.status,
                     additions: response.additions
                 }, this.data);

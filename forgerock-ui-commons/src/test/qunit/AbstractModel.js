@@ -12,16 +12,17 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2016 ForgeRock AS.
- * Portions copyright 2022 OSSTech Corporation
+ * Portions copyright 2022-2026 OSSTech Corporation
  */
 
 define([
     "jquery",
+    "lodash",
     "sinon",
     "qunit",
     "org/forgerock/commons/ui/common/main/AbstractModel",
     "org/forgerock/commons/ui/common/main/ServiceInvoker"
-], function ($, sinon, QUnit, AbstractModel, ServiceInvoker) {
+], function ($, _, sinon, QUnit, AbstractModel, ServiceInvoker) {
     QUnit.module('AbstractModel Functions');
 
     QUnit.test("create with server-assigned id", function (assert) {

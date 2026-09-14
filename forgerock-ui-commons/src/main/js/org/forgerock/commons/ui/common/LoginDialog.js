@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "org/forgerock/commons/ui/common/components/BootstrapDialog",
     "org/forgerock/commons/ui/common/util/UIUtils",
     "org/forgerock/commons/ui/common/main/Configuration",
@@ -26,7 +27,7 @@ define([
     "org/forgerock/commons/ui/common/main/ViewManager",
     "org/forgerock/commons/ui/common/main/AbstractView"
 ], function( $, _, BootstrapDialog, UIUtils, Configuration, Constants, EventManager, SessionManager, ViewManager,
-             AbstractView) {
+    AbstractView) {
     var LoginDialog = AbstractView.extend({
         template: "templates/common/LoginDialog.html",
         element: "#dialogs",
@@ -47,9 +48,9 @@ define([
                     UIUtils.renderTemplate(
                         this.template,
                         this.$el,
-                        _.extend({}, Configuration.globalData, this.data),
+                        _.assign({}, Configuration.globalData, this.data),
                         _.noop,
-                    "replace");
+                        "replace");
                 }, this),
                 buttons: [{
                     id: "loginDialogSubmitButton",

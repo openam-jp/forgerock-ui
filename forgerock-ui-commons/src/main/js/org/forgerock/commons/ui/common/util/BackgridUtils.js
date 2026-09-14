@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
@@ -26,12 +27,12 @@ define([
     "org/forgerock/commons/ui/common/backgrid/extension/ThemeableServerSideFilter"
 
 ], function ($, _,
-             Backgrid,
-             DateUtil,
-             UIUtils,
-             AutoScroll,
-             moment,
-             dragula) {
+    Backgrid,
+    DateUtil,
+    UIUtils,
+    AutoScroll,
+    moment,
+    dragula) {
     /**
      * @exports org/forgerock/commons/ui/common/util/BackgridUtils
      */
@@ -53,7 +54,7 @@ define([
      * @example
      * BackgridUtils.sortable({
      *   "containers": [$("#leftContainer")[0], $("#rightContainer")[0]],
-     *   "rows": _.clone(this.model.mappingProperties, true),
+     *   "rows": _.cloneDeep(this.model.mappingProperties),
      *   "handlesClassName": "fa fa-arrows"
      * }, _.bind(this.setMappingProperties, this));
      *
@@ -75,7 +76,7 @@ define([
         }
 
         dragDropInstance.on("cloned", _.bind(function(clone, original) {
-            _.each(original.children, function(child, index) {
+            _.forEach(original.children, function(child, index) {
                 $(clone).children().eq(index).css("width", $(child).css("width"));
                 $(clone).children().eq(index).css("padding", $(child).css("padding"));
             });
@@ -176,7 +177,7 @@ define([
         var events = {},
             html = "";
 
-        _.each(buttons, function (button, index) {
+        _.forEach(buttons, function (button, index) {
             if (button.href) {
                 html += ("<a href=\"" + button.href + "\"><i class=\"button-" + index + " " + button.className
                 + "\"></i></a>");
@@ -247,7 +248,7 @@ define([
                         return c.name === "smallScreenCell";
                     });
 
-                    _.each(filteredCols, _.bind(function (col) {
+                    _.forEach(filteredCols, _.bind(function (col) {
                         var cellView,
                             label = "<span class='text-muted'>" + col.label + ":</span> ",
                             cellWrapper;
@@ -472,7 +473,7 @@ define([
                 return model.cid !== cid;
             });
 
-        _.each(filtered, function (model) {
+        _.forEach(filtered, function (model) {
             model.set("direction", null);
         });
     };

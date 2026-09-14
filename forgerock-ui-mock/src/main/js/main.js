@@ -12,6 +12,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 require.config({
@@ -26,8 +27,9 @@ require.config({
             "RegisterView": "org/forgerock/commons/ui/user/anonymousProcess/SelfRegistrationView",
             "NavigationFilter" : "org/forgerock/commons/ui/common/components/navigation/filters/RoleFilter",
             "KBADelegate": "org/forgerock/commons/ui/user/delegates/KBADelegate",
-            // TODO: Remove this when there are no longer any references to the "underscore" dependency
-            "underscore": "lodash"
+            // "underscore" is the real Underscore.js for legacy libraries.
+            // Project code should use "lodash" instead.
+            "lodash": "lodashWrapper"
         }
     },
     paths: {
@@ -35,13 +37,15 @@ require.config({
         sinon: "libs/sinon-1.15.4",
         i18next: "libs/i18next-1.7.3-min",
         backbone: "libs/backbone-1.1.2-min",
-        "backbone.paginator": "libs/backbone.paginator.min-2.0.2-min",
+        "backbone.paginator": "libs/backbone.paginator.min-2.0.8-min",
         "backbone-relational": "libs/backbone-relational-0.9.0-min",
         "backgrid": "libs/backgrid.min-0.3.5-min",
         "backgrid-filter": "libs/backgrid-filter.min-0.3.5-min",
         "backgrid-paginator": "libs/backgrid-paginator.min-0.3.5-min",
         selectize: "libs/selectize-0.12.1-min",
-        lodash: "libs/lodash-3.10.1-min",
+        "lodash-original": "libs/lodash-4.18.1-min",
+        lodashWrapper: "jp/co/osstech/commons/ui/common/util/lodash-wrapper",
+        underscore: "libs/underscore-1.13.8-min",
         js2form: "libs/js2form-2.0-769718a",
         form2js: "libs/form2js-2.0-769718a",
         spin: "libs/spin-2.0.1-min",
@@ -59,7 +63,8 @@ require.config({
         sinon: {
             exports: "sinon"
         },
-        underscore: {
+        "lodash-original": {
+            deps: ["underscore"],
             exports: "_"
         },
         backbone: {
@@ -70,7 +75,7 @@ require.config({
             deps: ["backbone"]
         },
         "backgrid": {
-            deps: ["jquery", "underscore", "backbone"],
+            deps: ["jquery", "underscore", "backbone", "lodash"],
             exports: "Backgrid"
         },
         "backgrid-filter": {
@@ -92,7 +97,7 @@ require.config({
             deps: ["jquery"]
         },
         'bootstrap-dialog': {
-            deps: ["jquery", "underscore","backbone", "bootstrap"]
+            deps: ["jquery", "underscore", "backbone", "bootstrap"]
         },
         placeholder: {
             deps: ["jquery"]
@@ -140,7 +145,7 @@ require([
 
     // libraries necessary for forgerock-ui (and thus worth bundling)
     "jquery",
-    "underscore",
+    "lodash",
     "backbone",
     "handlebars",
     "i18next",

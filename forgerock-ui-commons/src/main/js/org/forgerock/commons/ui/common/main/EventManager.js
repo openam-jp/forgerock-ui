@@ -12,11 +12,12 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions copyright 2026 OSSTech Corporation
  */
 
 define([
     "jquery",
-    "underscore"
+    "lodash"
 ], function($, _) {
 
     var obj = {},
@@ -58,7 +59,7 @@ define([
     obj.unregisterListener = function (eventId, callbackToRemove) {
         if (_.has(eventRegistry, eventId)) {
             if (callbackToRemove !== undefined) {
-                eventRegistry[eventId] = _.omit(eventRegistry[eventId], function (callback) {
+                eventRegistry[eventId] = _.omitBy(eventRegistry[eventId], function (callback) {
                     return callback === callbackToRemove;
                 });
             } else {

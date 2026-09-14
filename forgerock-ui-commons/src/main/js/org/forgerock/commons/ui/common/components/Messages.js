@@ -17,16 +17,16 @@
 
 define([
     "jquery",
-    "underscore",
+    "lodash",
     "backbone",
     "org/forgerock/commons/ui/common/main/AbstractConfigurationAware"
 ], function($, _, Backbone, AbstractConfigurationAware) {
     var obj = new AbstractConfigurationAware(), Messages;
 
-    obj.TYPE_SUCCESS =  "success";
-    obj.TYPE_INFO =     "info";
-    obj.TYPE_WARNING =  "warning";
-    obj.TYPE_DANGER =   "error";
+    obj.TYPE_SUCCESS = "success";
+    obj.TYPE_INFO = "info";
+    obj.TYPE_WARNING = "warning";
+    obj.TYPE_DANGER = "error";
 
     Messages = Backbone.View.extend({
 
