@@ -29,7 +29,7 @@
     <parent>
         <groupId>jp.openam.commons.ui</groupId>
         <artifactId>forgerock-ui</artifactId>
-        <version>13.0.5.3</version>
+        <version>13.0.5.4</version>
     </parent>
 
     <artifactId>forgerock-ui-user</artifactId>
